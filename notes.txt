@@ -1,0 +1,12 @@
+prompt ->
+---------------------------------
+    Name:
+    Day:
+    Distance [XXXXXXXXXXX      ]
+    Energy:
+    Water:
+
+    Actions:
+    Travel (t), Bag (b), Hunt (h), Forage (f), Explore (e), Info (i)
+    Make Shelter (ms), Sleep (s), Bathe (ba)
+---------------------------------
