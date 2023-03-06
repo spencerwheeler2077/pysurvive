@@ -10,3 +10,5 @@ prompt ->
     Travel (t), Bag (b), Hunt (h), Forage (f), Explore (e), Info (i)
     Make Shelter (ms), Sleep (s), Bathe (ba)
 ---------------------------------
+
+This is what the prompt should look like
