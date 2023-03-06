@@ -1,5 +1,6 @@
 from random import randint
 from bag import Bag
+from camp import Camp
 
 
 class Player:
@@ -11,6 +12,7 @@ class Player:
         self.traveled = 0
         self.exhaustion = 0
         self.hasMap = False
+        self.location = Camp()
 
         if difficulty == 1:
             self.distance = 1000
@@ -28,7 +30,7 @@ class Player:
         self.actionMap = {
             "t": self.travel,
             "h": self.hunt,
-            "b": self.bag,
+            "b": self.bag.useBag,
             "f": self.forage,
             "e": self.explore,
             "i": self.info,
@@ -68,9 +70,6 @@ class Player:
 
     def hunt(self):
         print("You Hunted")
-
-    def bag(self):
-        print("You opened your bag")
 
     def forage(self):
         print("You foraged")

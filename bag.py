@@ -8,3 +8,13 @@ class Bag:
             totalWeight += item.getWeight()
         return totalWeight
 
+    def useBag(self):
+        print()
+        count = 1
+        for item in self.items:
+
+            print(f"{count}. {item.name},", end="")
+
+        print(f"\nTotal weight is {self.totalWeight()}")
+        
+

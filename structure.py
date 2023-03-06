@@ -91,7 +91,7 @@ class BigTree(Structure):
                         Items.Food(), Items.Food(), Items.Food()]
 
     def message(self):
-        print("There is a Big Tree here!")
+        print("There is a big tree here!")
 
 
 class River(Structure):
