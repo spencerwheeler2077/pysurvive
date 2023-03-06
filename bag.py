@@ -16,5 +16,5 @@ class Bag:
             print(f"{count}. {item.name},", end="")
 
         print(f"\nTotal weight is {self.totalWeight()}")
-        
+
 

@@ -76,6 +76,24 @@ class Lighter(Item):
         print(f"Allows you to try to start a fire, less successful than matches but can be used multiple times. Weighs {self.weight}")
 
 
+class FlashLight(Item):
+    def __init__(self):
+        super().__init__(30)
+        self.name = "Flashlight"
+
+    def info(self):
+        print(f"Makes it easier to find items when searching structures. Weighs {self.weight}")
+
+
+class Watch(Item):
+    def __init__(self):
+        super().__init__(10)
+        self.name = "Watch"
+
+    def info(self):
+        print(f"You can keep track of time thanks to this! Weighs {self.weight}")
+
+
 class Food(Item):
     def __init__(self):
         super().__init__(20)

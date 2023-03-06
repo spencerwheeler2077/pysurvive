@@ -8,13 +8,13 @@ def makeStructure():
         return Structure()
     if randNum < 70:
         return Car()
-    if randNum < 74:
+    if randNum < 72:
         return Cabin()
-    if randNum < 80:
+    if randNum < 78:
         return BigTree()
-    if randNum < 86:
+    if randNum < 82:
         return Cave()
-    if randNum < 92:
+    if randNum < 90:
         return River()
     else:
         return Structure()
@@ -48,10 +48,10 @@ class Structure:
 class Car(Structure):
     def __init__(self):
         super().__init__()
-        self.__maxItems = randint(2, 4)
+        self.__maxItems = randint(1, 4)
         self.__itemChance = randint(75, 95)
         self.__items = [Items.Map(), Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(), Items.Match(),
-                        Items.Match(), Items.Match()]
+                        Items.Watch(), Items.Match(), Items.Match()]
 
     def message(self):
         print("There is a abandoned car here!")
@@ -63,7 +63,7 @@ class Cabin(Structure):
         self.__maxItems = randint(2, 6)
         self.__itemChance = randint(65, 85)
         self.__items = [Items.Map(), Items.Map(), Items.Knife(), Items.Knife(), Items.Tarp(), Items.Match(),
-                        Items.Match(), Items.Match(), Items.Match(), Items.Food()]
+                        Items.Match(), Items.FlashLight, Items.Match(), Items.Match(), Items.Food()]
 
     def message(self):
         print("There is a abandoned cabin here!")
@@ -75,7 +75,7 @@ class Cave(Structure):
         self.__maxItems = randint(1, 2)
         self.__itemChance = randint(40, 65)
         self.__items = [Items.Knife(), Items.WaterBottle(), Items.Lighter(), Items.Match(),
-                        Items.Match(), Items.Food(), Items.Food()]
+                        Items.Match(),Items.FlashLight(), Items.Food(), Items.Food()]
 
     def message(self):
         print("There is a cave here!")
@@ -85,8 +85,8 @@ class BigTree(Structure):
     def __init__(self):
         super().__init__()
         self.shelter = False
-        self.__maxItems = [0, 0, 1, 2][randint(0, 3)]
-        self.__itemChance = randint(85, 99)
+        self.__maxItems = [0, 0, 0, 1, 1, 2][randint(0, 5)]
+        self.__itemChance = randint(85, 97)
         self.__items = [Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(),
                         Items.Food(), Items.Food(), Items.Food()]
 
