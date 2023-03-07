@@ -13,6 +13,9 @@ class Camp:
         self.__info = [self.__structure.message()]
         print(self.__structure.message())
 
+    def foundWater(self):
+        return self.__water()
+
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus
         if huntAttempt < self.__animals:

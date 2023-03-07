@@ -16,6 +16,9 @@ class Item:
     def info(self):
         print("No use described")
 
+    def __eq__(self, other):
+        return type(self) == type(other)
+
 
 class Map(Item):
 

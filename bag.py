@@ -21,6 +21,22 @@ class Bag:
         lostItem = self.items.pop(randint(0, len(self.items)-1))
         print(f"You lost a {lostItem.name}")
 
+    # Since You shouldn't have expect to have more than 10 items these searches shouldn't matter too much even though
+    # They are inefficient. This could be improved.
+    def huntBonus(self):
+        if Items.Knife in self.items:
+            return 10
+        else:
+            return 0
+
+    def hasMap(self):
+        return Items.Map in self.items
+
+    def hasWatch(self):
+        return Items.Watch in self.items
+
+
+
     def useBag(self):
         print()
         if len(self.items) == 0:

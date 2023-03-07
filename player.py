@@ -70,6 +70,7 @@ class Player:
 
     def hunt(self):
         print("You started hunting")
+
         success = self.location.hunt()
 
 
