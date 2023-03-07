@@ -69,7 +69,10 @@ class Player:
         # TODO create a new location
 
     def hunt(self):
-        print("You Hunted")
+        print("You started hunting")
+        success = self.location.hunt()
+
+
 
     def forage(self):
         print("You foraged")

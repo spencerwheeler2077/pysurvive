@@ -42,7 +42,7 @@ class Structure:
             return None
 
     def message(self):
-        print("There isn't a structure here")
+        return "There isn't a structure here"
 
 
 class Car(Structure):
@@ -54,7 +54,7 @@ class Car(Structure):
                         Items.Watch(), Items.Match(), Items.Match()]
 
     def message(self):
-        print("There is a abandoned car here!")
+        return "There is a abandoned car here!"
 
 
 class Cabin(Structure):
@@ -66,7 +66,7 @@ class Cabin(Structure):
                         Items.Match(), Items.FlashLight, Items.Match(), Items.Match(), Items.Food(100, 150)]
 
     def message(self):
-        print("There is a abandoned cabin here!")
+        return "There is a abandoned cabin here!"
 
 
 class Cave(Structure):
@@ -78,7 +78,7 @@ class Cave(Structure):
                         Items.Match(),Items.FlashLight(), Items.Food(50, 200), Items.Food(70, 220)]
 
     def message(self):
-        print("There is a cave here!")
+        return "There is a cave here!"
 
 
 class BigTree(Structure):
@@ -91,7 +91,7 @@ class BigTree(Structure):
                         Items.Food(30, 100), Items.Food(50, 150), Items.Food(75, 250)]
 
     def message(self):
-        print("There is a big tree here!")
+        return "There is a big tree here!"
 
 
 class River(Structure):
@@ -105,5 +105,5 @@ class River(Structure):
                         Items.Lighter(), Items.Food(30, 60), Items.Food(50, 100), Items.Food(100, 200)]
 
     def message(self):
-        print("There is a river here!")
+        return "There is a river here!"
 
