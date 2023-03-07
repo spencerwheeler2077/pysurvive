@@ -24,7 +24,7 @@ class Map(Item):
         self.name = "Map"
 
     def info(self):
-        print(f"Map makes traveling more efficient, and lets you see who far you need to go until safety. Weighs {self.weight}")
+        print(f"Map makes traveling more efficient, and lets you see how far you need to go until safety. Weighs {self.weight}")
 
 
 class Knife(Item):
@@ -106,4 +106,4 @@ class Food(Item):
         return self.energyGiven
 
     def info(self):
-        print(f"You can eat this and gain {self.energyGiven} energy, weighs {self.weight}")
+        print(f"Using this item, will give you {self.energyGiven} energy, weighs {self.weight}")
