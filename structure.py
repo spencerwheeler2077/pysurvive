@@ -63,7 +63,7 @@ class Cabin(Structure):
         self.__maxItems = randint(2, 6)
         self.__itemChance = randint(65, 85)
         self.__items = [Items.Map(), Items.Map(), Items.Knife(), Items.Knife(), Items.Tarp(), Items.Match(),
-                        Items.Match(), Items.FlashLight, Items.Match(), Items.Match(), Items.Food()]
+                        Items.Match(), Items.FlashLight, Items.Match(), Items.Match(), Items.Food(100, 150)]
 
     def message(self):
         print("There is a abandoned cabin here!")
@@ -75,7 +75,7 @@ class Cave(Structure):
         self.__maxItems = randint(1, 2)
         self.__itemChance = randint(40, 65)
         self.__items = [Items.Knife(), Items.WaterBottle(), Items.Lighter(), Items.Match(),
-                        Items.Match(),Items.FlashLight(), Items.Food(), Items.Food()]
+                        Items.Match(),Items.FlashLight(), Items.Food(50, 200), Items.Food(70, 220)]
 
     def message(self):
         print("There is a cave here!")
@@ -88,7 +88,7 @@ class BigTree(Structure):
         self.__maxItems = [0, 0, 0, 1, 1, 2][randint(0, 5)]
         self.__itemChance = randint(85, 97)
         self.__items = [Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(),
-                        Items.Food(), Items.Food(), Items.Food()]
+                        Items.Food(30, 100), Items.Food(50, 150), Items.Food(75, 250)]
 
     def message(self):
         print("There is a big tree here!")
@@ -102,7 +102,7 @@ class River(Structure):
         self.__maxItems = [0, 0, 0, 1, 1, 2, 2, 3][randint(0, 7)]
         self.__itemChance = randint(40, 60)
         self.__items = [Items.WaterBottle(), Items.WaterBottle(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(),
-                        Items.Lighter(), Items.Food(), Items.Food(), Items.Food()]
+                        Items.Lighter(), Items.Food(30, 60), Items.Food(50, 100), Items.Food(100, 200)]
 
     def message(self):
         print("There is a river here!")

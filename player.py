@@ -30,7 +30,7 @@ class Player:
         self.actionMap = {
             "t": self.travel,
             "h": self.hunt,
-            "b": self.bag.useBag,
+            "b": self.useBag,
             "f": self.forage,
             "e": self.explore,
             "i": self.info,
@@ -73,6 +73,13 @@ class Player:
 
     def forage(self):
         print("You foraged")
+
+    def useBag(self):
+        energy = self.bag.useBag()
+        if energy != 0:
+            self.energy += energy
+            if self.energy > 1200:
+                self.energy = 1200
 
     def explore(self):
         print("You explored")

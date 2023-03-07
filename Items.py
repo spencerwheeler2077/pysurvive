@@ -95,10 +95,10 @@ class Watch(Item):
 
 
 class Food(Item):
-    def __init__(self):
+    def __init__(self, min=100, max=200):
         super().__init__(20)
         self.name = "Food"
-        self.energyGiven = random.randint(100, 400)
+        self.energyGiven = random.randint(min, max)
         # TODO give food a new name based on how much energy it gives
 
     def use(self):
