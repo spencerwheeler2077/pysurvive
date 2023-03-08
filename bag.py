@@ -14,6 +14,7 @@ class Bag:
         return totalWeight
 
     def addItem(self, item):
+        #TODO add a limit to number of items in bag
         print(f"{item.name} was added to your bag")
         self.items.append(item)
 

@@ -99,7 +99,9 @@ class Watch(Item):
 # TODO make a trap item
 # TODO make a rope item
 
+
 class Food(Item):
+
     def __init__(self, min=100, max=200):
         super().__init__(20)
         self.name = "Food"
