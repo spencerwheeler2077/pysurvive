@@ -5,7 +5,7 @@ import Items
 def makeStructure():
     randNum = randint(1, 100)
     if randNum < 66:
-        return Structure()
+        return NoStructure()
     if randNum < 70:
         return Car()
     if randNum < 72:
@@ -17,7 +17,7 @@ def makeStructure():
     if randNum < 90:
         return River()
     else:
-        return Structure()
+        return NoStructure()
 
 
 
@@ -43,6 +43,14 @@ class Structure:
 
     def message(self):
         return "There isn't a structure here"
+
+
+class NoStructure(Structure):
+    # This is a structure, place holder, basically there isn't anything here
+    def __init__(self):
+        super().__init__()
+        self.shelter = False
+
 
 
 class Car(Structure):

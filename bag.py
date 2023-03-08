@@ -25,7 +25,7 @@ class Bag:
     # They are inefficient. This could be improved.
     def huntBonus(self):
         if Items.Knife in self.items:
-            return 10
+            return 12
         else:
             return 0
 
@@ -35,9 +35,24 @@ class Bag:
     def hasWatch(self):
         return Items.Watch in self.items
 
+    def canMakeFire(self):
+        return Items.Match in self.items or Items.Lighter in self.items
 
+    def hasWaterBottle(self):
+        return Items.WaterBottle in self.items
+
+    def shelterBonus(self):
+        total = 0
+        if Items.Knife in self.items:
+            total += 10
+        if Items.Tarp in self.items:
+            total += 10
+
+    def hasFlashLight(self):
+        return Items.FlashLight in self.items
 
     def useBag(self):
+
         print()
         if len(self.items) == 0:
             print("You have no items in your bag.")

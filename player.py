@@ -1,6 +1,8 @@
 from random import randint
 from bag import Bag
 from camp import Camp
+import Items
+from Time import Time
 
 
 class Player:
@@ -12,6 +14,7 @@ class Player:
         self.traveled = 0
         self.exhaustion = 0
         self.hasMap = False
+        self.time = Time()
         self.location = Camp()
 
         if difficulty == 1:
@@ -71,12 +74,34 @@ class Player:
     def hunt(self):
         print("You started hunting")
 
-        success = self.location.hunt()
+        success = self.location.hunt(self.bag.huntBonus()-self.penalty)
+        if success:
+            print("You were successful!")
+            if self.location.fire:
+                self.bag.addItem(Items.Food(200, 500))
+            else:
+                print("You don't have a fire so the food won't be that great to eat...")
+                self.bag.addItem(Items.Food(125, 250))
+        else:
+            print("You didn't find any food on your hunt.")
 
-
+        energySpent = randint(20, 40)
+        print(f"You spent {energySpent} energy")
+        self.energy = self.energy - energySpent
 
     def forage(self):
-        print("You foraged")
+        print("You started looking for food")
+        success = self.location.forage(self.bag.huntBonus()-self.penalty)
+        if success:
+            print("You were successful!")
+            self.bag.addItem(Items.Food(35, 100))
+        else:
+            print("You didn't find any food.")
+
+        energySpent = randint(20, 40)
+        print(f"You spent {energySpent} energy")
+        self.energy = self.energy - energySpent
+
 
     def useBag(self):
         energy = self.bag.useBag()

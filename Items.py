@@ -64,7 +64,7 @@ class Match(Item):
 
     def __init__(self):
         super().__init__(1)
-        self.name = "Match"
+        self.name = "Matches"
 
     def info(self):
         print(f"Allows you to try to start a fire, more successful than a lighter but disappear after use. Weighs {self.weight}")
