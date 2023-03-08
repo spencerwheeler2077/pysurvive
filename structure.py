@@ -101,6 +101,12 @@ class BigTree(Structure):
     def message(self):
         return "There is a big tree here!"
 
+# TODO add campsite
+
+# TODO add airplane
+
+# TODO add cliff
+
 
 class River(Structure):
     def __init__(self):

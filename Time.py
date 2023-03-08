@@ -31,4 +31,8 @@ class Time:
         """Function that runs after the travel function is called runs the action function a few times"""
         for i in range(2):
             self.action()
+
+    def canSleep(self):
+        return (not self.__morning) and (self.__hour > 8)
+
             

@@ -15,6 +15,8 @@ class Camp:
         self.__hasPlantReport = False
         if self.__water:
             self.__info.append("There is water here.")
+        if self.__shelter:
+            self.__info.append("You can use the structure here as a shelter!")
         self.fire = False
         print(self.__structure.message())
 
@@ -27,7 +29,7 @@ class Camp:
     def explore(self):
         if randint(1, 100) >= 40:
             self.animalReport()
-        if randint(1, 100) > 20:
+        if randint(1, 100) >= 20:
             self.plantReport()
         self.searchWater(20)
 
@@ -45,9 +47,9 @@ class Camp:
         if not self.__hasPlantReport:
             self.__hasPlantReport = True
             if self.__plants < 25:
-                message = "There isn't many plants around"
+                message = "There aren't many plants around"
             elif self.__plants < 45:
-                message = "There is an normal amount of plant life here"
+                message = "There is a normal amount of plant life here"
             else:
                 message = "There is a lot of edible plants here!"
             print(message)
@@ -56,9 +58,15 @@ class Camp:
     def foundWater(self):
         return self.__water
 
+    def hasShelter(self):
+        return self.__shelter
+
+    def hasFire(self):
+        return self.fire
+
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus
-        if huntAttempt < self.__animals:
+        if huntAttempt <= self.__animals:
             self.searchWater()
             return True
         else:
@@ -66,7 +74,7 @@ class Camp:
 
     def forage(self, itemBonus):
         forageAttempt = randint(1, 100) - itemBonus
-        if forageAttempt < self.__plants:
+        if forageAttempt <= self.__plants:
             self.searchWater(14)
             return True
         return False
@@ -74,7 +82,17 @@ class Camp:
     def searchWater(self, num=0):
         if not self.__water:
             waterSearch = randint(1, 100)
-            if waterSearch + num > 80:
+            if waterSearch + num >= 80:
                 self.__water = True
                 print("You found a source of water!")
                 self.__info.append("You have found a close source of fresh water at this location.")
+
+    def makeShelter(self, itemBonus):
+        shelterAttempt = randint(1, 100) - itemBonus
+        if shelterAttempt <= 25:
+            self.searchWater()
+            self.__info.append("You have made a shelter here!")
+            return True
+        else:
+            return False
+

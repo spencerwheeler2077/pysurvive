@@ -57,6 +57,11 @@ class Player:
         self.energy = self.energy - energySpent
         self.time.action()
 
+    def __addEnergy(self, amount):
+        self.energy += amount
+        if self.energy > 1200:
+            self.energy = 1200
+
 
     def travel(self):
         # TODO rework this!
@@ -124,10 +129,8 @@ class Player:
 
     def useBag(self):
         energy = self.bag.useBag()
-        if energy != 0:
-            self.energy += energy
-            if self.energy > 1200:
-                self.energy = 1200
+        if self.energy != 0:
+            self.__addEnergy(energy)
 
     def explore(self):
         print("You started exploring")
@@ -144,10 +147,21 @@ class Player:
         print("You made shelter")
 
     def sleep(self):
-        # TODO check if this is valid
-        self.exhaustion = 0
-        self.time.sleep()
-        print("You slept")
+        if self.time.canSleep():
+            self.exhaustion = 0
+            self.time.sleep()
+            print("You slept")
+            if self.location.hasShelter():
+                self.__addEnergy(randint(10, 20))
+            elif not self.location.hasFire():  # This runs if there is no shelter and no fire
+                self.__useEnergy(0, randint(15, 30))
+                print("You didn't sleep well it was hard without a shelter and no fire")
+            else:  # This runs if there is a fire but no shelter
+                self.__addEnergy(randint(10, 20))
+
+        else:
+            print("You cannot sleep right now. It is not late enough")
+
 
     def checkThing(self):
         print("You checked something")
