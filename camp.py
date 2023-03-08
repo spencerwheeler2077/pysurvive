@@ -35,22 +35,26 @@ class Camp:
         if not self.__hasAnimalReport:
             self.__hasAnimalReport = True
             if self.__animals > 10:
-                self.__info.append("There are an good amount of animals here")
+                message = "There are an good amount of animals here"
             else:
-                self.__info.append("There arent a lot of animals here")
+                message = "There arent a lot of animals here"
+            print(message)
+            self.__info.append(message)
 
     def plantReport(self):
         if not self.__hasPlantReport:
             self.__hasPlantReport = True
             if self.__plants < 25:
-                self.__info.append("There isn't many plants around")
+                message = "There isn't many plants around"
             elif self.__plants < 45:
-                self.__info.append("There is an normal amount of plant life here")
+                message = "There is an normal amount of plant life here"
             else:
-                self.__info.append("There is a lot of edible plants here!")
+                message = "There is a lot of edible plants here!"
+            print(message)
+            self.__info.append(message)
 
     def foundWater(self):
-        return self.__water()
+        return self.__water
 
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus

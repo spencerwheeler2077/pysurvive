@@ -1,4 +1,5 @@
-class Time():
+class Time:
+
     def __init__(self):
         self.__day = 0
         self.__morning = True

@@ -130,14 +130,14 @@ class Player:
                 self.energy = 1200
 
     def explore(self):
+        print("You started exploring")
         self.location.explore()
         self.time.action()
-        print("You explored")
         self.__useEnergy(15, 30)
 
     def info(self):
         # This should report all the things found out about the area
-        print("You looked for info")
+        self.location.info()
 
     def makeShelter(self):
         # TODO check if this is valid
@@ -146,6 +146,7 @@ class Player:
     def sleep(self):
         # TODO check if this is valid
         self.exhaustion = 0
+        self.time.sleep()
         print("You slept")
 
     def checkThing(self):
