@@ -43,6 +43,21 @@ class Player:
             "x": self.fire,
         }
 
+    def doAction(self, action):
+        self.actionMap[action]()
+        if self.location.foundWater():
+            if self.bag.hasWaterBottle():
+                self.water = 2000
+            else:
+                self.water = 1000
+
+    def __useEnergy(self, small, most):
+        energySpent = randint(small, most)
+        print(f"You spent {energySpent} energy")
+        self.energy = self.energy - energySpent
+        self.time.action()
+
+
     def travel(self):
         # TODO rework this!
         if self.exhaustion >= 6:
@@ -67,11 +82,15 @@ class Player:
             else:
                 break
         print(f"total energy spent {energyNeed}")
-        return [energyNeed, 0, 0, "placeHolder", True, 0, 0]
+        self.location = Camp()
         # TODO calculate distance traveled
-        # TODO create a new location
+        return
 
     def hunt(self):
+        maxEnergy = 40
+        if self.energy < maxEnergy:
+            print("You don't have enough energy to go hunting!")
+            return
         print("You started hunting")
 
         success = self.location.hunt(self.bag.huntBonus()-self.penalty)
@@ -85,11 +104,14 @@ class Player:
         else:
             print("You didn't find any food on your hunt.")
 
-        energySpent = randint(20, 40)
-        print(f"You spent {energySpent} energy")
-        self.energy = self.energy - energySpent
+        self.__useEnergy(20, maxEnergy)
 
     def forage(self):
+        minEnergy = 20
+        maxEnergy = 40
+        if self.energy < maxEnergy:
+            print("You don't have enough energy!")
+
         print("You started looking for food")
         success = self.location.forage(self.bag.huntBonus()-self.penalty)
         if success:
@@ -97,10 +119,7 @@ class Player:
             self.bag.addItem(Items.Food(35, 100))
         else:
             print("You didn't find any food.")
-
-        energySpent = randint(20, 40)
-        print(f"You spent {energySpent} energy")
-        self.energy = self.energy - energySpent
+        self.__useEnergy(minEnergy, maxEnergy)
 
 
     def useBag(self):
@@ -111,7 +130,10 @@ class Player:
                 self.energy = 1200
 
     def explore(self):
+        self.location.explore()
+        self.time.action()
         print("You explored")
+        self.__useEnergy(15, 30)
 
     def info(self):
         # This should report all the things found out about the area

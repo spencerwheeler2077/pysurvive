@@ -96,6 +96,8 @@ class Watch(Item):
     def info(self):
         print(f"You can keep track of time thanks to this! Weighs {self.weight}")
 
+# TODO make a trap item
+# TODO make a rope item
 
 class Food(Item):
     def __init__(self, min=100, max=200):
@@ -110,3 +112,4 @@ class Food(Item):
 
     def info(self):
         print(f"Using this item, will give you {self.energyGiven} energy, weighs {self.weight}")
+

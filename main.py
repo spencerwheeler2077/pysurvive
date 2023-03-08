@@ -31,7 +31,7 @@ class Game:
 
         action = input("-> ")
         try:
-            self.player.actionMap[action]()
+            self.player.doAction(action)
             self.player.time.action()
         except KeyError:
             print("Invalid Action")
