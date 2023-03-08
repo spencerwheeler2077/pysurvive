@@ -20,22 +20,20 @@ def makeStructure():
         return NoStructure()
 
 
-
 class Structure:
     def __init__(self):
         self.shelter = True
         self.hasWater = False
         self.__itemChance = 0
         self.__maxItems = 0
-        self.takenItems = 0
         self.__items = []
 
     def takeItem(self):
-        if self.__maxItems == self.takenItems:
+        if self.__maxItems == 0:
             print("There are no more items here")
             return None
         elif randint(1, 100) <= self.__itemChance:
-            self.takenItems += 1
+            self.__maxItems -= 1
             return self.__items[randint(0, len(self.__items)-1)]
         else:
             print("Couldn't find anything in the structure. Maybe you should try again.")
@@ -43,6 +41,9 @@ class Structure:
 
     def message(self):
         return "There isn't a structure here"
+
+    def __eq__(self, other):
+        return type(other) == type(self)
 
 
 class NoStructure(Structure):

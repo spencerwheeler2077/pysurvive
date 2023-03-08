@@ -114,4 +114,3 @@ class Food(Item):
 
     def info(self):
         print(f"Using this item, will give you {self.energyGiven} energy, weighs {self.weight}")
-

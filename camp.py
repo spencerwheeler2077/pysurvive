@@ -10,6 +10,7 @@ class Camp:
         self.__water = self.__structure.hasWater
         self.__animals = randint(6, 15)
         self.__plants = randint(15, 56)
+        self.__shelterOdds = randint(20, 35)
         self.__info = [self.__structure.message()]
         self.__hasAnimalReport = False
         self.__hasPlantReport = False
@@ -64,10 +65,14 @@ class Camp:
     def hasFire(self):
         return self.fire
 
+    def hasStructure(self):
+        return self.__structure != structure.NoStructure()
+
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus
         if huntAttempt <= self.__animals:
             self.searchWater()
+            self.__animals -= 1
             return True
         else:
             return False
@@ -76,6 +81,7 @@ class Camp:
         forageAttempt = randint(1, 100) - itemBonus
         if forageAttempt <= self.__plants:
             self.searchWater(14)
+            self.__plants -= 1
             return True
         return False
 
@@ -89,10 +95,14 @@ class Camp:
 
     def makeShelter(self, itemBonus):
         shelterAttempt = randint(1, 100) - itemBonus
-        if shelterAttempt <= 25:
+        if shelterAttempt <= self.__shelterOdds:
             self.searchWater()
-            self.__info.append("You have made a shelter here!")
-            return True
+            self.__info.append("You have made a shelter at this site.")
+            self.__shelter = True
+            print("You successfully made a shelter here")
         else:
-            return False
+            print("Something went wrong and your shelter isn't that great. You will need to try again.")
+            self.__shelterOdds += 25
 
+    def itemHunt(self):
+        return self.__structure.takeItem()

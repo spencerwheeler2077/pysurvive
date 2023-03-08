@@ -39,19 +39,43 @@ class Player:
             "i": self.info,
             "m": self.makeShelter,
             "n": self.sleep,
-            "c": self.checkThing,
+            "c": self.checkStructure,
             "x": self.fire,
+            "w": self.wait,
         }
 
     def doAction(self, action):
+        if self.exhaustion > 13:
+            if action != "s" or "w":
+                print("You are too exhausted to do anything but sleep or wait!")
+                return
         self.actionMap[action]()
+
+        # else: TODO make it so water is taken away after doing an action
+
+    def addExhaustion(self, num):
+        self.exhaustion += num
+        if self.exhaustion >= 6:
+            print("Starting to get tired...")
+        elif self.exhaustion >= 9:
+            print("You are really tired now.")
+        elif self.exhaustion >= 12:
+            print("You will need to sleep soon you can barely do anything you're so tired.")
+
+    def __useWater(self, small, most):
         if self.location.foundWater():
             if self.bag.hasWaterBottle():
                 self.water = 2000
             else:
                 self.water = 1000
+            return
+        waterSpent = randint(small, most)
+        print(f"You used {waterSpent} water")
+        self.water = self.water - waterSpent
+        self.time.action()
 
     def __useEnergy(self, small, most):
+        self.__useWater(small*2, most*2)
         energySpent = randint(small, most)
         print(f"You spent {energySpent} energy")
         self.energy = self.energy - energySpent
@@ -62,7 +86,6 @@ class Player:
         if self.energy > 1200:
             self.energy = 1200
 
-
     def travel(self):
         # TODO rework this!
         if self.exhaustion >= 6:
@@ -71,16 +94,18 @@ class Player:
         if self.energy < 300:
             print("You need at least 300 energy to travel")
             return
+        if self.water < 600:
+            print("You need at least 600 water to travel")
+
         print('''You need at least 300 energy to travel, do you still wish to travel?\n''' +
               '''Type y to continue, anything else to quit. ''', end="")
         if input() != 'y':
             print("You did not travel")
-            # TODO add time system here
             return
         energyNeed = randint(150, 250)
         travelCount = 1
-        while self.energy - energyNeed > 150:
-            print(f"You've spent {energyNeed} energy traveling, do you wish to continue?")
+        while self.energy - energyNeed > 150 and self.water - energyNeed*2 > 300:
+            print(f"You've spent {energyNeed} energy traveling, and do you wish to continue?")
             if input("y to continue, anything else to stop ->") == "y":
                 energyNeed += randint(25, 100)
                 travelCount += 1
@@ -143,8 +168,10 @@ class Player:
         self.location.info()
 
     def makeShelter(self):
-        # TODO check if this is valid
-        print("You made shelter")
+        if self.location.hasShelter():
+            print("You already have a shelter")
+        else:
+            self.location.makeShelter(self.bag.shelterBonus()-self.penalty)
 
     def sleep(self):
         if self.time.canSleep():
@@ -162,9 +189,12 @@ class Player:
         else:
             print("You cannot sleep right now. It is not late enough")
 
+    def wait(self):
+        self.time.action()
+        print("You waited around relaxing for an hour")
 
-    def checkThing(self):
-        print("You checked something")
+    def checkStructure(self):
+        print("You checked area")
 
     def fire(self):
         print("You made a fire")
