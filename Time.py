@@ -6,7 +6,7 @@ class Time:
         self.__hour = 8
 
     def __str__(self):
-        return f"Day: {self.__day} Hour: {self.__hour} {self.__ampmstr()}"  # TODO make this look better
+        return f"Day {self.__day} {self.__hour}{self.__ampmstr()}"  # TODO make this look better
 
     def __ampmstr(self):
         """ Returns "am" if it is in the morning, "pm" otherwise """

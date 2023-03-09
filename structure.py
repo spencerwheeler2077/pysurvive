@@ -35,7 +35,7 @@ class Structure:
         elif randint(1, 100) <= self._itemChance:
             self._maxItems -= 1
             print("You found an item!")
-            return self._items[randint(0, len(self._items)-1)]
+            return self._items[randint(0, len(self._items) - 1)]
         else:
             print("Couldn't find anything in the structure. Maybe you should try again.")
             return None
@@ -60,14 +60,13 @@ class NoStructure(Structure):
         return "Nothing is here"
 
 
-
 class Car(Structure):
     def __init__(self):
         super().__init__()
         self._maxItems = randint(1, 4)
         self._itemChance = randint(75, 95)
         self._items = [Items.Map(), Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(), Items.Match(),
-                        Items.Watch(), Items.Match(), Items.Match()]
+                       Items.Watch(), Items.Match(), Items.Match()]
 
     def message(self):
         return "There is a abandoned car here!"
@@ -82,7 +81,7 @@ class Cabin(Structure):
         self._maxItems = randint(2, 6)
         self._itemChance = randint(65, 85)
         self._items = [Items.Map(), Items.Map(), Items.Knife(), Items.Knife(), Items.Tarp(), Items.Match(),
-                        Items.Match(), Items.FlashLight, Items.Match(), Items.Match(), Items.Food(100, 150)]
+                       Items.Match(), Items.FlashLight, Items.Match(), Items.Match(), Items.Food(100, 150)]
 
     def message(self):
         return "There is a abandoned cabin here!"
@@ -97,7 +96,7 @@ class Cave(Structure):
         self._maxItems = randint(1, 2)
         self._itemChance = randint(40, 65)
         self._items = [Items.Knife(), Items.WaterBottle(), Items.Lighter(), Items.Match(),
-                        Items.Match(),Items.FlashLight(), Items.Food(50, 200), Items.Food(70, 220)]
+                       Items.Match(), Items.FlashLight(), Items.Food(50, 200), Items.Food(70, 220)]
 
     def message(self):
         return "There is a cave here!"
@@ -113,13 +112,14 @@ class BigTree(Structure):
         self._maxItems = [0, 0, 0, 1, 1, 2][randint(0, 5)]
         self._itemChance = randint(85, 97)
         self._items = [Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(),
-                        Items.Food(30, 100), Items.Food(50, 150), Items.Food(75, 250)]
+                       Items.Food(30, 100), Items.Food(50, 150), Items.Food(75, 250)]
 
     def message(self):
         return "There is a big tree here!"
 
     def __str__(self):
         return "Big Tree"
+
 
 # TODO add campsite
 
@@ -136,11 +136,10 @@ class River(Structure):
         self._maxItems = [0, 0, 0, 1, 1, 2, 2, 3][randint(0, 7)]
         self._itemChance = randint(40, 60)
         self._items = [Items.WaterBottle(), Items.WaterBottle(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(),
-                        Items.Lighter(), Items.Food(30, 60), Items.Food(50, 100), Items.Food(100, 200)]
+                       Items.Lighter(), Items.Food(30, 60), Items.Food(50, 100), Items.Food(100, 200)]
 
     def message(self):
         return "There is a river here!"
 
     def __str__(self):
         return "River"
-

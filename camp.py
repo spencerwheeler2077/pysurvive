@@ -17,7 +17,7 @@ class Camp:
         if self.__water:
             self.__info.append("There is water here.")
         if self.__shelter:
-            self.__info.append("You can use the structure here as a shelter!")
+            self.__info.append(f"You can use the {str(self.__structure)} here as a shelter!")
         self.fire = False
         print(self.__structure.message())
 
@@ -71,7 +71,7 @@ class Camp:
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus
         if huntAttempt <= self.__animals:
-            self.searchWater()
+            self.searchWater(15)
             self.__animals -= 1
             return True
         else:
@@ -80,7 +80,7 @@ class Camp:
     def forage(self, itemBonus):
         forageAttempt = randint(1, 100) - itemBonus
         if forageAttempt <= self.__plants:
-            self.searchWater(14)
+            self.searchWater(20)
             self.__plants -= 1
             return True
         return False
@@ -88,7 +88,7 @@ class Camp:
     def searchWater(self, num=0):
         if not self.__water:
             waterSearch = randint(1, 100)
-            if waterSearch + num >= 80:
+            if waterSearch + num >= 75:
                 self.__water = True
                 print("You found a source of water!")
                 self.__info.append("You have found a close source of fresh water at this location.")

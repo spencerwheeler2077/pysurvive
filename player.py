@@ -51,8 +51,6 @@ class Player:
                 return
         self.actionMap[action]()
 
-        # else: TODO make it so water is taken away after doing an action
-
     def addExhaustion(self, num):
         self.exhaustion += num
         if self.exhaustion >= 6:
