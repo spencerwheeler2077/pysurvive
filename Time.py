@@ -5,6 +5,15 @@ class Time:
         self.__morning = True
         self.__hour = 8
 
+    def __str__(self):
+        return f"Day: {self.__day} Hour: {self.__hour} {self.__ampmstr()}" #TODO make this look better
+
+    def __ampmstr(self):
+        """ Returns "am" if it is in the morning, "pm" otherwise """
+        if self.__morning:
+            return "am"
+        return "pm"
+
     def getDay(self):return self.__day
     def getHour(self): return self.__hour
     def getMorning(self): return self.__morning
@@ -34,5 +43,3 @@ class Time:
 
     def canSleep(self):
         return (not self.__morning) and (self.__hour > 8)
-
-            

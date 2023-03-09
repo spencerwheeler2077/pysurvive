@@ -5,7 +5,7 @@ import Items
 
 class Bag:
     def __init__(self):
-        self.items = [Items.Knife(), Items.Watch(), Items.Food(25, 100)]
+        self.items = [Items.Knife(), Items.Watch(), Items.Food(25, 100), Items.Watch()]
 
     def totalWeight(self):
         totalWeight = 0
@@ -14,7 +14,7 @@ class Bag:
         return totalWeight
 
     def addItem(self, item):
-        #TODO add a limit to number of items in bag
+        # TODO add a limit to number of items in bag
         print(f"{item.name} was added to your bag")
         self.items.append(item)
 
@@ -25,32 +25,33 @@ class Bag:
     # Since You shouldn't have expect to have more than 10 items these searches shouldn't matter too much even though
     # They are inefficient. This could be improved.
     def huntBonus(self):
-        if Items.Knife in self.items:
+        if Items.Knife() in self.items:
             return 12
         else:
             return 0
 
     def hasMap(self):
-        return Items.Map in self.items
+        return Items.Map() in self.items
 
     def hasWatch(self):
-        return Items.Watch in self.items
+        return Items.Watch() in self.items
 
     def canMakeFire(self):
-        return Items.Match in self.items or Items.Lighter in self.items
+        return Items.Match() in self.items or Items.Lighter in self.items
 
     def hasWaterBottle(self):
-        return Items.WaterBottle in self.items
+        return Items.WaterBottle() in self.items
 
     def shelterBonus(self):
         total = 0
-        if Items.Knife in self.items:
+        if Items.Knife() in self.items:
             total += 10
-        if Items.Tarp in self.items:
+        if Items.Tarp() in self.items:
             total += 10
+        return total
 
     def hasFlashLight(self):
-        return Items.FlashLight in self.items
+        return Items.FlashLight() in self.items
 
     def useBag(self):
 

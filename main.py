@@ -24,7 +24,8 @@ class Game:
         print("---------------------------------")
         print(f"Name: {self.player.name}")
         # TODO add things to check if time and distance can be shown
-        print("Day: ")
+        if self.player.bag.hasWatch():
+            print(self.player.time)
         print("Distance: [XXXXXXX       ]")
         print(f"Energy: {self.player.energy}")
         print(f"Water: {self.player.water}")
