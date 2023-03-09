@@ -172,6 +172,7 @@ class Player:
             print("You already have a shelter")
         else:
             self.location.makeShelter(self.bag.shelterBonus()-self.penalty)
+        self.__useEnergy(50, 125)
 
     def sleep(self):
         if self.time.canSleep():
@@ -192,9 +193,13 @@ class Player:
     def wait(self):
         self.time.action()
         print("You waited around relaxing for an hour")
+        self.__useWater(20, 40)
 
     def checkStructure(self):
-        print("You checked area")
+        foundItem = self.location.itemHunt()
+        if foundItem is not None:
+            self.bag.addItem(foundItem)
+
 
     def fire(self):
         print("You made a fire")

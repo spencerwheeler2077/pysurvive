@@ -70,9 +70,13 @@ class Bag:
             try:
                 userIndex = int(userInput) - 1
                 self.items[userIndex].info()
-                if input("Do you want to use this item? Enter y for yes, anything else for no. -> ") == "y":
+                use = input("Do you want to use this item? Enter y for yes, t to toss it, anything else for no. -> ")
+                if use == "y":
                     totalEnergy += self.items[userIndex].use()
                     self.items.pop(userIndex)
+                elif use == "t":
+                    if input("Are you sure you want to toss this? enter y if yes") == "y":
+                        print(f"You tossed the {self.items.pop(userIndex).name}")
             except ValueError:
                 print("That was not a number try again.")
             except IndexError:

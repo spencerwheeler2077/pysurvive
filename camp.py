@@ -105,4 +105,5 @@ class Camp:
             self.__shelterOdds += 25
 
     def itemHunt(self):
+        print(f"You checked the {str(self.__structure)}")
         return self.__structure.takeItem()
