@@ -5,7 +5,7 @@ import Items
 def makeStructure():
     randNum = randint(1, 100)
     if randNum < 66:
-        return Cabin()
+        return NoStructure()
     if randNum < 70:
         return Car()
     if randNum < 72:
@@ -65,8 +65,8 @@ class Car(Structure):
         super().__init__()
         self._maxItems = randint(1, 4)
         self._itemChance = randint(75, 95)
-        self._items = [Items.Map(), Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(), Items.Match(),
-                       Items.Watch(), Items.Match(), Items.Match()]
+        self._items = [Items.Map(), Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(), Items.Matches(),
+                       Items.Watch(), Items.Matches(), Items.Matches()]
 
     def message(self):
         return "There is a abandoned car here!"
@@ -80,8 +80,8 @@ class Cabin(Structure):
         super().__init__()
         self._maxItems = randint(2, 6)
         self._itemChance = randint(65, 85)
-        self._items = [Items.Map(), Items.Map(), Items.Knife(), Items.Knife(), Items.Tarp(), Items.Match(),
-                       Items.Match(), Items.FlashLight, Items.Match(), Items.Match(), Items.Food(100, 150)]
+        self._items = [Items.Map(), Items.Map(), Items.Knife(), Items.Knife(), Items.Tarp(), Items.Matches(),
+                       Items.Matches(), Items.FlashLight, Items.Matches(), Items.Matches(), Items.Food(100, 150)]
 
     def message(self):
         return "There is a abandoned cabin here!"
@@ -95,8 +95,8 @@ class Cave(Structure):
         super().__init__()
         self._maxItems = randint(1, 2)
         self._itemChance = randint(40, 65)
-        self._items = [Items.Knife(), Items.WaterBottle(), Items.Lighter(), Items.Match(),
-                       Items.Match(), Items.FlashLight(), Items.Food(50, 200), Items.Food(70, 220)]
+        self._items = [Items.Knife(), Items.WaterBottle(), Items.Lighter(), Items.Matches(),
+                       Items.Matches(), Items.FlashLight(), Items.Food(50, 200), Items.Food(70, 220)]
 
     def message(self):
         return "There is a cave here!"

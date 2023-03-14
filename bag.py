@@ -6,7 +6,7 @@ import Items
 class Bag:
     def __init__(self):
         self.__limit = 10
-        self.items = [Items.Knife(), Items.Watch(), Items.Food(25, 100), Items.Watch()]
+        self.items = [Items.Knife(), Items.Food(25, 100), Items.Watch(), Items.Lighter()]
         self.__length = len(self.items)
         self.matches = None
 
@@ -64,7 +64,7 @@ class Bag:
 
     def canMakeFire(self):
         if len(self.items) != 0:
-            return Items.Matches() == self.items[0] or Items.Lighter in self.items
+            return Items.Matches() is not None or Items.Lighter() in self.items
 
     def hasWaterBottle(self):
         return Items.WaterBottle() in self.items
