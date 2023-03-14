@@ -5,7 +5,8 @@ import Items
 
 class Bag:
     def __init__(self):
-        self.items = [Items.Knife(), Items.Watch(), Items.Food(25, 100), Items.Watch()]
+        self.__limit = 10
+        self.items = [Items.Matches(), Items.Knife(), Items.Watch(), Items.Food(25, 100), Items.Watch()]
 
     def totalWeight(self):
         totalWeight = 0
@@ -14,9 +15,24 @@ class Bag:
         return totalWeight
 
     def addItem(self, item):
+        numItems = len(self.items)
+        if numItems >= self.__limit:
+            print("You can't put any more items so you have to toss this instead.")
+            return
+        if numItems >= self.__limit - 3:
+            print(f"Warning, you have {len(self.items)} items you can only have 10 in your bag")
+
         # TODO add a limit to number of items in bag
+
         print(f"{item.name} was added to your bag")
-        self.items.append(item)
+        if item == Items.Matches:
+            if self.items[0] == Items.Matches():
+                self.items[0].addMatch(item.getNumber)
+            else:
+                self.items.insert(0, item)
+
+        else:
+            self.items.append(item)
 
     def removeRandomItem(self):
         lostItem = self.items.pop(randint(0, len(self.items)-1))
@@ -37,7 +53,7 @@ class Bag:
         return Items.Watch() in self.items
 
     def canMakeFire(self):
-        return Items.Match() in self.items or Items.Lighter in self.items
+        return Items.Matches() in self.items or Items.Lighter in self.items
 
     def hasWaterBottle(self):
         return Items.WaterBottle() in self.items
@@ -81,7 +97,6 @@ class Bag:
                 print("That was not a number try again.")
             except IndexError:
                 print("That number isn't one for an item in your bag.")
-
             print()
 
     def __printItems(self):

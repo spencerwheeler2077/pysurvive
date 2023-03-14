@@ -60,14 +60,24 @@ class Tarp(Item):
         print(f"A Tarp makes making a shelter significantly easier. Weighs {self.weight}")
 
 
-class Match(Item):
+class Matches(Item):
 
-    def __init__(self):
+    def __init__(self, count=1):
         super().__init__(1)
         self.name = "Matches"
+        self._number = count
+
+    def addMatch(self, num):
+        self._number += num
+
+    def getNumber(self):
+        return self._number
+
+    def getWeight(self):
+        return self.weight*self._number
 
     def info(self):
-        print(f"Allows you to try to start a fire, more successful than a lighter but disappear after use. Weighs {self.weight}")
+        print(f"Allows you to try to start a fire, more successful than a lighter but disappear after use.\nYou have {self._number}. Weighs {self.weight}")
 
 
 class Lighter(Item):
