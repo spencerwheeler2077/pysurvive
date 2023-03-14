@@ -200,4 +200,7 @@ class Player:
 
 
     def fire(self):
-        print("You made a fire")
+        if self.bag.canMakeFire():
+            bonus = self.bag.useMatch()
+            self.location.makeFire(bonus)
+

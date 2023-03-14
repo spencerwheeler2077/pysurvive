@@ -11,6 +11,7 @@ class Camp:
         self.__animals = randint(6, 15)
         self.__plants = randint(15, 56)
         self.__shelterOdds = randint(20, 35)
+        self.__fireOdds = randint(55, 70)
         self.__info = [self.__structure.message()]
         self.__hasAnimalReport = False
         self.__hasPlantReport = False
@@ -96,13 +97,21 @@ class Camp:
     def makeShelter(self, itemBonus):
         shelterAttempt = randint(1, 100) - itemBonus
         if shelterAttempt <= self.__shelterOdds:
-            self.searchWater()
             self.__info.append("You have made a shelter at this site.")
             self.__shelter = True
             print("You successfully made a shelter here")
         else:
             print("Something went wrong and your shelter isn't that great. You will need to try again.")
             self.__shelterOdds += 25
+
+    def makeFire(self, itemBonus):
+        fireAttempt = randint(1, 100) - itemBonus
+        if fireAttempt <= self.__fireOdds:
+            self.__info.append("You have started a fire at this site.")
+            self.fire = True
+            print("You successfully made a fire!")
+        else:
+            print("All the wood you gathered was wet and you weren't able to start a fire.")
 
     def itemHunt(self):
         print(f"You checked the {str(self.__structure)}")

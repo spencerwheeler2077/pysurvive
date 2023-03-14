@@ -70,7 +70,7 @@ class Matches(Item):
     def addMatch(self, num):
         self._number += num
 
-    def getNumber(self):
+    def getCount(self):
         return self._number
 
     def getWeight(self):

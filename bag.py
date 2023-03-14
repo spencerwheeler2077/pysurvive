@@ -6,28 +6,38 @@ import Items
 class Bag:
     def __init__(self):
         self.__limit = 10
-        self.items = [Items.Matches(), Items.Knife(), Items.Watch(), Items.Food(25, 100), Items.Watch()]
+        self.items = [Items.Knife(), Items.Watch(), Items.Food(25, 100), Items.Watch()]
+        self.__length = len(self.items)
+        self.matches = None
 
     def totalWeight(self):
         totalWeight = 0
         for item in self.items:
             totalWeight += item.getWeight()
+        if self.matches is not None:
+            return totalWeight + self.matches.getWeight()
         return totalWeight
 
+    def numItems(self):
+        if self.matches is not None:
+            self.__length = 1 + len(self.items)
+        else:
+            self.__length = len(self.items)
+
     def addItem(self, item):
-        numItems = len(self.items)
-        if numItems >= self.__limit:
+
+        if self.__length >= self.__limit:
             print("You can't put any more items so you have to toss this instead.")
             return
-        if numItems >= self.__limit - 3:
+        if self.__length >= self.__limit - 3:
             print(f"Warning, you have {len(self.items)} items you can only have 10 in your bag")
 
         # TODO add a limit to number of items in bag
 
         print(f"{item.name} was added to your bag")
-        if item == Items.Matches:
-            if self.items[0] == Items.Matches():
-                self.items[0].addMatch(item.getNumber)
+        if item == Items.Matches and self.__length > 0:
+            if self.matches is not None:
+                self.matches.addMatch(item.getCount())
             else:
                 self.items.insert(0, item)
 
@@ -53,7 +63,8 @@ class Bag:
         return Items.Watch() in self.items
 
     def canMakeFire(self):
-        return Items.Matches() in self.items or Items.Lighter in self.items
+        if len(self.items) != 0:
+            return Items.Matches() == self.items[0] or Items.Lighter in self.items
 
     def hasWaterBottle(self):
         return Items.WaterBottle() in self.items
@@ -68,6 +79,17 @@ class Bag:
 
     def hasFlashLight(self):
         return Items.FlashLight() in self.items
+
+    def useMatch(self):
+        if self.matches is not None:
+            if self.matches.getCount() == 1:
+                self.matches = None
+            else:
+                self.matches.add(-1)
+
+            return 10
+        # This returns the bonus that should be used to make fire 10 for a match, 0 without (lighter)
+        return 0
 
     def useBag(self):
 
