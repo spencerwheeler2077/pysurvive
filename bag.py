@@ -30,16 +30,15 @@ class Bag:
             print("You can't put any more items so you have to toss this instead.")
             return
         if self.__length >= self.__limit - 3:
-            print(f"Warning, you have {len(self.items)} items you can only have 10 in your bag")
+            print(f"Warning, you have {self.__length} items, you can only have 10 in your bag")
 
-        # TODO add a limit to number of items in bag
 
         print(f"{item.name} was added to your bag")
         if item == Items.Matches and self.__length > 0:
             if self.matches is not None:
                 self.matches.addMatch(item.getCount())
             else:
-                self.items.insert(0, item)
+                self.matches = item
 
         else:
             self.items.append(item)

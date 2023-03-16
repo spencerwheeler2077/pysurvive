@@ -22,16 +22,8 @@ class Game:
 
     def turn(self):
         print("---------------------------------")
-        print(f"Name: {self.player.name}")
-        # TODO add things to check if time and distance can be shown
-        if self.player.bag.hasWatch():
-            print(self.player.time)
-        print("Distance: [XXXXXXX       ]")
-        print(f"Energy: {self.player.energy}")
-        print(f"Water: {self.player.water}")
-        print()
-        print("Actions: \nTravel (t), Bag(b), Hunt (h) Forage (f), Explore (e), Info (i)")
-        print("Make Shelter (m), Sleep (s), Check structure (c), Start Fire (x)")  # TODO make temporary actions appear/disapear
+        self.player.printInfo()
+        self.player.printActions()
         print("---------------------------------")
 
         action = input("-> ")

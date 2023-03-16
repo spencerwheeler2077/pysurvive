@@ -6,7 +6,7 @@ class Time:
         self.__hour = 8
 
     def __str__(self):
-        return f"Day {self.__day} {self.__hour}{self.__ampmstr()}"  # TODO make this look better
+        return f"Day-{self.__day} {self.__hour}{self.__ampmstr()}"
 
     def __ampmstr(self):
         """ Returns "am" if it is in the morning, "pm" otherwise """
@@ -36,10 +36,10 @@ class Time:
         else:
             self.__hour += 1
 
-    def travel(self):
+    def travel(self, time):
         """Function that runs after the travel function is called runs the action function a few times"""
-        for i in range(2):
+        for i in range(time):
             self.action()
 
     def canSleep(self):
-        return (not self.__morning) and (self.__hour > 8)
+        return ((not self.__morning) and (self.__hour > 8)) or (self.__morning and (self.__hour < 6))
