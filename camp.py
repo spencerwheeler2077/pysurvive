@@ -39,7 +39,7 @@ class Camp:
         if not self.__hasAnimalReport:
             self.__hasAnimalReport = True
             if self.__animals > 10:
-                message = "There are an good amount of animals here"
+                message = "There are a good amount of animals here"
             else:
                 message = "There arent a lot of animals here"
             print(message)

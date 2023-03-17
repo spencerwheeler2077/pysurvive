@@ -5,6 +5,7 @@ from player import Player
 class Game:
     def __init__(self, test=False, strength=1):
         if not test:
+            self.welcome()
             name = input('Player\'s name -> ')
             difficulty = ""
             while difficulty not in ['1', '2', '3']:
@@ -14,9 +15,6 @@ class Game:
             name = "TestPlayer"
             difficulty = strength
         self.player = Player(name, difficulty)
-        #  TODO edit the distances to be a random thing
-
-        # set up values for player
 
         self.play()
 
@@ -27,15 +25,22 @@ class Game:
         print("---------------------------------")
 
         action = input("-> ")
-        try:
-            self.player.doAction(action)
-        except KeyError:
-            print("Invalid Action")
+        self.player.doAction(action)
 
     def play(self):
-        # TODO add a welcome message
+
         while self.player.traveled < self.player.distance:
             self.turn()
+
+    def welcome(self):
+        print("\n---------------------------------\nWelcome to pySurvive!")
+        print('''You are lost in a forest, and must try to escape with your life.
+        There are many actions available to you that will help you accomplish this
+        task. Each of these tasks can be done by typing in the correlating key into
+        the console, and then pressing enter. Try your best to do it in the best
+        time, taking the least number of in game days. (very correlated with number
+        of actions you take.) Good Luck!\n---------------------------------\n''')
+
 
 if __name__ == "__main__":
     Game()

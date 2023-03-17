@@ -8,6 +8,7 @@ from Time import Time
 
 class Player:
     def __init__(self, name, difficulty):
+        self.actionCount = 0
         self.bag = Bag()
         self.name = name
         self.difficulty = difficulty
@@ -50,7 +51,7 @@ class Player:
         if self.exhaustion > self.exhaustionLimit:
             print("Sleep (s), Wait (w), Bag (b), Info (i), Quit (q)")
         else:
-            print("Actions: \nTravel (t), Bag(b), Hunt (h) Forage (f), Explore (e), Info (i), wait (w), ")
+            print("Actions: \nTravel (t), Bag (b), Hunt (h) Forage (f), Explore (e), Info (i), wait (w), ")
             if not self.location.hasShelter():
                 print("Make Shelter (m),", end=" ")
             if self.time.canSleep():
@@ -65,6 +66,8 @@ class Player:
         print(f"Name: {self.name}")
         if self.bag.hasWatch():
             print(self.time)
+        else:
+            print(self.time.getLight())
 
         if self.bag.hasMap():
             print("[", end="")
@@ -80,23 +83,26 @@ class Player:
         print()
 
     def doAction(self, action):
-        if self.exhaustion > self.exhaustionLimit:
-            if action != "s" and action != "w" and action != "b" and action != "i":
-                print("You are too exhausted to do anything but sleep, wait, Bag, or Info!")
-                return
-        self.actionMap[action]()
+        try:
+            if self.exhaustion > self.exhaustionLimit:
+                if action != "s" and action != "w" and action != "b" and action != "i":
+                    print("You are too exhausted to do anything but sleep, wait, Bag, or Info!")
+                    return
+            self.actionMap[action]()
+            self.actionCount += 1
+        except KeyError:
+            print("Invalid Action")
 
     def __addExhaustion(self, num):
         self.exhaustion += num
-        if self.exhaustion >= 6:
+        if self.exhaustion == 7:
             print("Starting to get tired...")
-        elif self.exhaustion >= 9:
+        elif self.exhaustion == 10:
             print("You are really tired now.")
-        elif self.exhaustion >= 12:
+        elif self.exhaustion == 14:
             print("You will need to sleep soon you can barely do anything you're so tired.")
 
     def __useWater(self, small, most):
-        # TODO Check for zero water if zero == loss
         if self.location.foundWater():
             if self.bag.hasWaterBottle():
                 self.water = 2000
@@ -106,13 +112,27 @@ class Player:
         waterSpent = randint(small, most)
         print(f"You used {waterSpent} water")
         self.water = self.water - waterSpent
+        if self.water < 1:
+            self.__death("You have run out of water.")
 
     def __useEnergy(self, small, most):
-        #  TODO check for zero energy if zero == loss
+
         self.__useWater(small * 2, most * 2)
-        energySpent = randint(small, most)
+        energySpent = randint(small + self.penalty, most)
         print(f"You spent {energySpent} energy")
         self.energy = self.energy - energySpent
+        if self.energy < 1:
+            self.__death("You have run out of energy, maybe next time eat more food.")
+
+    def __death(self, message):
+        print("You have died.")
+        print(message)
+        print(f"- You traveled {self.traveled} out of the {self.distance} needed.")
+        print(f"- You had {self.bag.numItems()}")
+        print(f"- You survived for {self.time.getDay()} in game Days.")
+        print(f"- It took you {self.time.realTimeElapsed()} minutes.")
+        print(f"- You did {self.actionCount} actions")
+        exit(0)
 
     def __addEnergy(self, amount):
         self.energy += amount
@@ -139,7 +159,7 @@ class Player:
         travelCount = 1
         while self.energy - energyNeed > 150 and self.water - energyNeed * 2 > 300:
             print(f"You've spent about {energyNeed} energy traveling, and do you wish to continue?")
-            if input("y to continue, anything else to stop ->") == "y":
+            if input("y to continue, anything else to stop -> ") == "y":
                 energyNeed += randint(25, 100)
                 travelCount += 1
             else:
@@ -160,7 +180,7 @@ class Player:
             return int(((3 * energyUsed) // 5 - self.penalty * 5 - self.bag.totalWeight() // 2) * ranFloat(.6, 1))
 
     def hunt(self):
-        maxEnergy = 40
+        maxEnergy = 40 + self.penalty
         if self.energy < maxEnergy:
             print("You don't have enough energy to go hunting!")
             return
@@ -183,9 +203,10 @@ class Player:
 
     def forage(self):
         minEnergy = 20
-        maxEnergy = 40
+        maxEnergy = 37 + self.penalty
         if self.energy < maxEnergy:
             print("You don't have enough energy!")
+            return
 
         print("You started looking for food")
         success = self.location.forage(self.bag.huntBonus() - self.penalty)
@@ -230,12 +251,14 @@ class Player:
             self.time.sleep()
             print("You slept")
             if self.location.hasShelter():
-                self.__addEnergy(randint(10, 20))
+                self.__addEnergy(randint(5, 15))
+                print("The Shelter helped you sleep")
             elif not self.location.hasFire():  # This runs if there is no shelter and no fire
-                self.__useEnergy(0, randint(15, 30))
+                self.__useEnergy(0, randint(15, 30+self.penalty))
                 print("You didn't sleep well it was hard without a shelter and no fire")
-            else:  # This runs if there is a fire but no shelter
-                self.__addEnergy(randint(10, 20))
+            else:
+                self.__addEnergy(randint(3, 10))
+                print("The Fire helped you sleep")
 
         else:
             print("You cannot sleep right now. It is not late enough")
@@ -257,7 +280,7 @@ class Player:
             if foundItem is not None:
                 self.bag.addItem(foundItem)
             self.__addExhaustion(1)
-            self.__useEnergy(15, 30)
+            self.__useEnergy(15, 30+self.penalty)
             self.time.action()
 
     def fire(self):
@@ -265,5 +288,5 @@ class Player:
             bonus = self.bag.useMatch()
             self.location.makeFire(bonus)
             self.__addExhaustion(1)
-            self.__useEnergy(25, 60)
+            self.__useEnergy(25, 50 + self.penalty)
             self.time.action()

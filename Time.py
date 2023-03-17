@@ -1,9 +1,11 @@
+import time
 class Time:
 
     def __init__(self):
         self.__day = 0
         self.__morning = True
         self.__hour = 8
+        self.__startTime = time.time()
 
     def __str__(self):
         return f"Day-{self.__day} {self.__hour}{self.__ampmstr()}"
@@ -17,6 +19,12 @@ class Time:
     def getDay(self):return self.__day
     def getHour(self): return self.__hour
     def getMorning(self): return self.__morning
+
+    def getLight(self):
+        if self.canSleep():
+            return "It's dark out"
+        else:
+            return "It's light out"
 
     def sleep(self):
         """Function to make it morning after sleep action is used"""
@@ -45,3 +53,5 @@ class Time:
     def canSleep(self):
         return ((not self.__morning) and (self.__hour > 8)) or (self.__morning and (self.__hour < 6) or self.__hour==12)
 
+    def realTimeElapsed(self):
+        return (time.time() - self.__startTime)//60000

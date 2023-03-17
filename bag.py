@@ -114,7 +114,7 @@ class Bag:
                     totalEnergy += self.items[userIndex].use()
                     self.items.pop(userIndex)
                 elif use == "t":
-                    if input("Are you sure you want to toss this? enter y if yes") == "y":
+                    if input("Are you sure you want to toss this? enter y if yes -> ") == "y":
                         print(f"You tossed the {self.items.pop(userIndex).name}")
             except ValueError:
                 print("That was not a number try again.")
@@ -123,11 +123,16 @@ class Bag:
             print()
 
     def __printItems(self):
+        # TODO fix this to print the new matches thing
         count = 0
+        if self.matches is not None:
+            count += 1
+            print(f"{count}. {self.matches.name}", end="")
         for item in self.items:
             count += 1
             print(f"{count}. {item.name} ", end=" ")
             if count % 5 == 0:
                 print()
+
 
         print(f"\nTotal weight is {self.totalWeight()}")
