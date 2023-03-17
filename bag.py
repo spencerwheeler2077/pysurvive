@@ -21,6 +21,7 @@ class Bag:
     def numItems(self):
         if self.matches is not None:
             self.__length = 1 + len(self.items)
+
         else:
             self.__length = len(self.items)
 
@@ -34,7 +35,7 @@ class Bag:
 
 
         print(f"{item.name} was added to your bag")
-        if item == Items.Matches and self.__length > 0:
+        if item == Items.Matches():
             if self.matches is not None:
                 self.matches.addMatch(item.getCount())
             else:
@@ -42,6 +43,7 @@ class Bag:
 
         else:
             self.items.append(item)
+        self.numItems()
 
     def removeRandomItem(self):
         lostItem = self.items.pop(randint(0, len(self.items)-1))
@@ -125,7 +127,7 @@ class Bag:
         for item in self.items:
             count += 1
             print(f"{count}. {item.name} ", end=" ")
-            if count > 5:
+            if count % 5 == 0:
                 print()
 
         print(f"\nTotal weight is {self.totalWeight()}")

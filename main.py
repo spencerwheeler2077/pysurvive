@@ -29,7 +29,6 @@ class Game:
         action = input("-> ")
         try:
             self.player.doAction(action)
-            self.player.time.action()
         except KeyError:
             print("Invalid Action")
 

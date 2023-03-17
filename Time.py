@@ -27,14 +27,15 @@ class Time:
     def action(self):
         """Function to add an hour after an action is used"""
         if self.__hour == 12:
-            if not self.__morning:
-                self.__day += 1
-                self.__morning = True
-            else:
-                self.__morning = False
             self.__hour = 1
-        else:
-            self.__hour += 1
+            return
+
+        if self.__hour == 11:
+            self.__morning = not self.__morning
+            if self.__morning:
+                self.__day += 1
+
+        self.__hour += 1
 
     def travel(self, time):
         """Function that runs after the travel function is called runs the action function a few times"""
@@ -42,4 +43,5 @@ class Time:
             self.action()
 
     def canSleep(self):
-        return ((not self.__morning) and (self.__hour > 8)) or (self.__morning and (self.__hour < 6))
+        return ((not self.__morning) and (self.__hour > 8)) or (self.__morning and (self.__hour < 6) or self.__hour==12)
+
