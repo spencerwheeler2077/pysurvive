@@ -32,6 +32,8 @@ class Game:
         while self.player.traveled < self.player.distance:
             self.turn()
 
+        self.player.winMessage()
+
     def welcome(self):
         print("\n---------------------------------\nWelcome to pySurvive!")
         print('''You are lost in a forest, and must try to escape with your life.

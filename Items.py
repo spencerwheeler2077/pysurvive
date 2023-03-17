@@ -106,17 +106,30 @@ class Watch(Item):
     def info(self):
         print(f"You can keep track of time thanks to this! Weighs {self.weight}")
 
-# TODO make a trap item
-# TODO make a rope item
+
+class Trap(Item):
+    def __init__(self):
+        super().__init__(50)
+        self.name = "Lighter"
+
+    def info(self):
+        print(f"This helps you be more effective while hunting. Weighs {self.weight}")
+
+
+class Rope(Item):
+    def __init__(self):
+        super().__init__(30)
+        self.name = "Rope"
+
+    def info(self):
+        print(f"This Rope will be useful when making a shelter! Weights {self.weight}")
 
 
 class Food(Item):
-
     def __init__(self, min=100, max=200):
         super().__init__(20)
-        self.name = "Food"
         self.energyGiven = random.randint(min, max)
-        # TODO give food a new name based on how much energy it gives
+        self.name = self.__giveName()
 
     def use(self):
         print(f"You ate the {self.name} and gained {self.energyGiven} energy")
@@ -124,3 +137,30 @@ class Food(Item):
 
     def info(self):
         print(f"Using this item, will give you {self.energyGiven} energy, weighs {self.weight}")
+
+    def __giveName(self):
+        if self.energyGiven < 40:
+            return "Wild Greens"
+        elif self.energyGiven < 60:
+            return "Wild Berries"
+        elif self.energyGiven < 75:
+            return "Mushrooms"
+        elif self.energyGiven <= 100:
+            return "Nuts"
+        # 150 - 250 unCooked
+        elif self.energyGiven < 175:
+            return "Raw Squirrel"
+        elif self.energyGiven < 185:
+            return "Raw Snake"
+        elif self.energyGiven < 215:
+            return "Raw Rabbit"
+        elif self.energyGiven < 255:
+            return "Raw Fish"
+        elif self.energyGiven < 310:
+            return "Cooked Squirrel"
+        elif self.energyGiven < 340:
+            return "Cooked Snake"
+        elif self.energyGiven < 400:
+            return "Cooked Fish"
+        else:
+            return "Cooked Rabbit"

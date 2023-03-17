@@ -102,7 +102,7 @@ class Camp:
             print("You successfully made a shelter here")
         else:
             print("Something went wrong and your shelter isn't that great. You will need to try again.")
-            self.__shelterOdds += 25
+            self.__shelterOdds += 30
 
     def makeFire(self, itemBonus):
         fireAttempt = randint(1, 100) - itemBonus

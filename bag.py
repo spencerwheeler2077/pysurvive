@@ -123,7 +123,6 @@ class Bag:
             print()
 
     def __printItems(self):
-        # TODO fix this to print the new matches thing
         count = 0
         if self.matches is not None:
             count += 1

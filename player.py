@@ -127,12 +127,22 @@ class Player:
     def __death(self, message):
         print("You have died.")
         print(message)
+        self.__gameReport()
+        exit(0)
+
+    def winMessage(self):
+        print("You have reached civilization!")
+        print("You have won the game!")
+        self.__gameReport()
+        exit(0)
+
+    def __gameReport(self):
         print(f"- You traveled {self.traveled} out of the {self.distance} needed.")
         print(f"- You had {self.bag.numItems()}")
         print(f"- You survived for {self.time.getDay()} in game Days.")
         print(f"- It took you {self.time.realTimeElapsed()} minutes.")
         print(f"- You did {self.actionCount} actions")
-        exit(0)
+        print("\nThanks for playing!")
 
     def __addEnergy(self, amount):
         self.energy += amount
@@ -242,7 +252,7 @@ class Player:
 
         self.location.makeShelter(self.bag.shelterBonus() - self.penalty)
         self.__addExhaustion(1)
-        self.__useEnergy(50, 125)
+        self.__useEnergy(50, 100)
         self.time.action()
 
     def sleep(self):
@@ -251,13 +261,14 @@ class Player:
             self.time.sleep()
             print("You slept")
             if self.location.hasShelter():
-                self.__addEnergy(randint(5, 15))
+                self.__addEnergy(randint(30, 45))
                 print("The Shelter helped you sleep")
             elif not self.location.hasFire():  # This runs if there is no shelter and no fire
-                self.__useEnergy(0, randint(15, 30+self.penalty))
+                self.__useEnergy(0, randint(20, 35+self.penalty))
                 print("You didn't sleep well it was hard without a shelter and no fire")
-            else:
-                self.__addEnergy(randint(3, 10))
+                return
+            if self.location.hasFire():
+                self.__addEnergy(randint(-3, 10))
                 print("The Fire helped you sleep")
 
         else:
