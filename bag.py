@@ -86,7 +86,7 @@ class Bag:
             if self.matches.getCount() == 1:
                 self.matches = None
             else:
-                self.matches.add(-1)
+                self.matches.useMatch()
 
             return 10
         # This returns the bonus that should be used to make fire 10 for a match, 0 without (lighter)
@@ -116,6 +116,7 @@ class Bag:
                 elif use == "t":
                     if input("Are you sure you want to toss this? enter y if yes -> ") == "y":
                         print(f"You tossed the {self.items.pop(userIndex).name}")
+                self.numItems()  # reset the count of items in bag
             except ValueError:
                 print("That was not a number try again.")
             except IndexError:
@@ -126,7 +127,7 @@ class Bag:
         count = 0
         if self.matches is not None:
             count += 1
-            print(f"{count}. {self.matches.name}", end="")
+            print(f"{count}. {self.matches.name} x{self.matches.getCount()}", end=" ")
         for item in self.items:
             count += 1
             print(f"{count}. {item.name} ", end=" ")

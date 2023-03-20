@@ -14,8 +14,17 @@ prompt ->
 This is what the prompt should look like
 
 
+
 Major items left to do.
 
     -play testing
     -adding a save feature
     -move numbers to a file that would be easier to find and change
+
+Bugs found to be fixed
+
+    -you can sleep at 12pm
+    -Bag indexing with matches not being found in the bag.
+    -Make sleeping have a penalty for not having a shelter and one not having a fire
+    separate
+    -

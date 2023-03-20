@@ -69,6 +69,8 @@ class Matches(Item):
 
     def addMatch(self, num):
         self._number += num
+    def useMatch(self):
+        self._number -= 1
 
     def getCount(self):
         return self._number
