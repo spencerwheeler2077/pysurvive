@@ -34,11 +34,11 @@ class Structure:
         self._maxItems = 0
         self._items = []
 
-    def takeItem(self):
+    def takeItem(self, itemBonus):
         if self._maxItems == 0:
             print("There are no more items here")
             return None
-        elif randint(1, 100) <= self._itemChance:
+        elif (randint(1, 100) + itemBonus) <= self._itemChance:
             self._maxItems -= 1
             print("You found an item!")
             return self._items[randint(0, len(self._items) - 1)]

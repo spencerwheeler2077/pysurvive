@@ -297,7 +297,7 @@ class Player:
 
     def checkStructure(self):
         if self.location.hasStructure():
-            foundItem = self.location.itemHunt()
+            foundItem = self.location.itemHunt(self.bag.searchBonus())
             if foundItem is not None:
                 self.bag.addItem(foundItem)
             self.__addExhaustion(1)

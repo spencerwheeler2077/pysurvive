@@ -53,10 +53,12 @@ class Bag:
     # Since You shouldn't have expect to have more than 10 items these searches shouldn't matter too much even though
     # They are inefficient. This could be improved.
     def huntBonus(self):
+        total = 0
         if Items.Knife() in self.items:
-            return 12
-        else:
-            return 0
+            total += 9
+        if Items.Trap() in self.items:
+            total += 11
+        return 0
 
     def hasMap(self):
         return Items.Map() in self.items
@@ -77,10 +79,15 @@ class Bag:
             total += 10
         if Items.Tarp() in self.items:
             total += 10
+        if Items.Rope() in self.items:
+            total += 10
         return total
 
-    def hasFlashLight(self):
-        return Items.FlashLight() in self.items
+    def searchBonus(self):
+        if Items.FlashLight() in self.items:
+            return 20
+        else:
+            return 0
 
     def useMatch(self):
         if self.matches is not None:

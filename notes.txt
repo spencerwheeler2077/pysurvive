@@ -8,7 +8,7 @@ prompt ->
 
     Actions:
     Travel (t), Bag (b), Hunt (h), Forage (f), Explore (e), Info (i)
-    Make Shelter (ms), Sleep (s), Bathe (ba)
+    Make Shelter (ms), Sleep (s), check Structure (c), make Fire(f), Quit (q)
 ---------------------------------
 
 This is what the prompt should look like
@@ -23,8 +23,8 @@ Major items left to do.
 
 Bugs found to be fixed
 
-    -you can sleep at 12pm
-    -Bag indexing with matches not being found in the bag.
+    -you can sleep at 12pm -DONE-
+    -Bag indexing with matches not being found in the bag. -DONE-
     -Make sleeping have a penalty for not having a shelter and one not having a fire
-    separate
+    separate -DONE-
     -

@@ -113,6 +113,6 @@ class Camp:
         else:
             print("All the wood you gathered was wet and you weren't able to start a fire.")
 
-    def itemHunt(self):
+    def itemHunt(self, itemBonus):
         print(f"You checked the {str(self.__structure)}")
-        return self.__structure.takeItem()
+        return self.__structure.takeItem(itemBonus)
