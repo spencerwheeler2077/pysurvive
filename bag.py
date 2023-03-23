@@ -4,9 +4,10 @@ import Items
 
 
 class Bag:
-    def __init__(self):
+    def __init__(self, difficulty):
+        startItems = 4-difficulty  # Hard gets 1, medium gets 2, easy gets 3
         self.__limit = 10
-        self.items = [Items.Knife(), Items.Food(25, 100), Items.Watch(), Items.Lighter()]
+        self.items = Items.startItems(4-difficulty)
         self.__length = len(self.items)
         self.matches = None
 
@@ -107,8 +108,15 @@ class Bag:
             if userInput == "exit":
                 return totalEnergy
             try:
-                userIndex = int(userInput) - 1
-                self.items[userIndex].info()
+                if self.matches is not None:
+                    userIndex = int(userInput) - 2
+                    if userIndex == -1:
+                        self.matches.info()
+                    else:
+                        self.items[userIndex].info()
+                else:
+                    userIndex = int(userInput)-1
+                    self.items[userIndex].info()
                 use = input("Do you want to use this item? Enter y for yes, t to toss it, anything else for no. -> ")
                 if use == "y":
                     totalEnergy += self.items[userIndex].use()

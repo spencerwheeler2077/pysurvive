@@ -9,9 +9,8 @@ from Time import Time
 class Player:
     def __init__(self, name, difficulty):
         self.actionCount = 0
-        self.bag = Bag()
+        self.bag = Bag(difficulty)
         self.name = name
-        self.difficulty = difficulty
         self.water = 1000
         self.exhaustionLimit = 15
         self.traveled = 0
@@ -90,6 +89,7 @@ class Player:
                     return
             self.actionMap[action]()
             self.actionCount += 1
+
         except KeyError:
             print("Invalid Action")
 
@@ -177,7 +177,7 @@ class Player:
         self.__useEnergy(energyNeed, energyNeed + 5 + self.penalty)
         self.__addExhaustion(travelCount + 2)
         self.time.travel(travelCount + 1)
-
+        print()
         self.location = Camp()
         self.traveled += self.__findTravelDistance(energyNeed, self.bag.hasMap())
 
@@ -210,6 +210,7 @@ class Player:
         self.__addExhaustion(1)
         self.__useEnergy(20, maxEnergy)
         self.time.action()
+        print()
 
     def forage(self):
         minEnergy = 20
@@ -228,11 +229,14 @@ class Player:
         self.__addExhaustion(1)
         self.__useEnergy(minEnergy, maxEnergy)
         self.time.action()
+        print()
 
     def useBag(self):
+
         energy = self.bag.useBag()
         if self.energy != 0:
             self.__addEnergy(energy)
+        print()
 
     def explore(self):
         print("You started exploring")
@@ -240,6 +244,7 @@ class Player:
         self.__addExhaustion(1)
         self.time.action()
         self.__useEnergy(15, 30)
+        print()
 
     def info(self):
         # This should report all the things found out about the area
@@ -260,24 +265,29 @@ class Player:
             self.exhaustion = 0
             self.time.sleep()
             print("You slept")
+            EnergyLoss = 0
             if self.location.hasShelter():
-                self.__addEnergy(randint(30, 45))
+                self.__addEnergy(randint(30-self.penalty, 45))
                 print("The Shelter helped you sleep")
-            elif not self.location.hasFire():  # This runs if there is no shelter and no fire
-                self.__useEnergy(0, randint(20, 35+self.penalty))
-                print("You didn't sleep well it was hard without a shelter and no fire")
-                return
-            if self.location.hasFire():
-                self.__addEnergy(randint(-3, 10))
-                print("The Fire helped you sleep")
+            else:
+                EnergyLoss = randint(20+self.penalty, 50)
+                print("It would have been nice to see in a shelter.")
 
+            if self.location.hasFire():  # This runs if there is no shelter and no fire
+                self.__addEnergy(randint(-5, 15-self.penalty))
+                print("The fire helped you sleep")
+            else:
+                EnergyLoss += randint(10+self.penalty, 20)
+                print("It would have been nice to sleep, with a fire...")
         else:
             print("You cannot sleep right now. It is not late enough")
+
+        print()
 
     def wait(self):
         self.time.action()
         print("You waited around relaxing for an hour")
-        self.__useWater(20, 40)
+        self.__useEnergy(-1, 4+self.penalty)
 
     def quit(self):
         intentionCheck = input("Are you sure you want to exit? enter y to quit \n-> ")

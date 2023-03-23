@@ -10,17 +10,17 @@ def makeStructure():
         return Car()
     if randNum < 72:
         return Cabin()
-    if randNum < 77:
+    if randNum < 78:
         return BigTree()
-    if randNum < 80:
+    if randNum < 81:
         return Cave()
-    if randNum < 86:
+    if randNum < 87:
         return River()
-    if randNum < 89:
+    if randNum < 91:
         return Cliff()
-    if randNum < 92:
-        return Campsite()
     if randNum < 95:
+        return Campsite()
+    if randNum < 100:
         return Lake()
     else:
         return NoStructure()
@@ -115,7 +115,7 @@ class BigTree(Structure):
     def __init__(self):
         super().__init__()
         self.shelter = False
-        self._maxItems = [0, 0, 0, 1, 1, 2][randint(0, 5)]
+        self._maxItems = [0, 0, 1, 1, 1, 2][randint(0, 5)]
         self._itemChance = randint(85, 97)
         self._items = [Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(),
                        Items.Food(30, 100), Items.Food(50, 150), Items.Food(75, 250)]
@@ -131,7 +131,7 @@ class Campsite(Structure):
     def __init__(self):
         super().__init__()
         self.shelter = False
-        self._maxItems = randint(0, 2)
+        self._maxItems = randint(1, 2)
         self._itemChance = randint(85, 90)
         self._items = [Items.Map(), Items.Knife(), Items.WaterBottle(), Items.Tarp(), Items.Matches(3),
                        Items.Matches(2), Items.FlashLight(), Items.FlashLight(), Items.Trap()]
@@ -165,7 +165,7 @@ class River(Structure):
         super().__init__()
         self.shelter = False
         self.hasWater = True
-        self._maxItems = [0, 0, 0, 1, 1, 2, 2, 3][randint(0, 7)]
+        self._maxItems = [0, 0, 1, 1, 2, 2, 3][randint(0, 6)]
         self._itemChance = randint(40, 60)
         self._items = [Items.WaterBottle(), Items.WaterBottle(), Items.WaterBottle(), Items.Tarp(), Items.Lighter(),
                        Items.Lighter(), Items.Food(30, 60), Items.Food(50, 100), Items.Food(100, 200), Items.Trap()]
@@ -182,7 +182,7 @@ class Lake(Structure):
         super().__init__()
         self.shelter = False
         self.hasWater = True
-        self._maxItems = [0, 0, 1, 1, 1, 2, 2][randint(0, 7)]
+        self._maxItems = [0, 0, 1, 1, 1, 2, 2][randint(0, 6)]
         self._itemChance = randint(30, 45)
         self._items = [Items.WaterBottle(), Items.Knife(), Items.Matches(), Items.Food(30, 60), Items.Food(50, 100),
                        Items.Food(75, 120), Items.Trap(), Items.Rope(), Items.Rope(), Items.Trap()]
@@ -191,4 +191,4 @@ class Lake(Structure):
         return "There is a lake here!"
 
     def __str__(self):
-        return "River"
+        return "Lake"

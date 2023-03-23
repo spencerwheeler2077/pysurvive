@@ -1,6 +1,14 @@
 import random
 
 
+def startItems(difficulty):
+    items = [Map(), Lighter(), Knife(), Watch(), Food(100, 100), WaterBottle()]
+    result = []
+    for i in range(difficulty):
+        result.append(items.pop(random.randint(0, len(items)-1)))
+    return result
+
+
 class Item:
     def __init__(self, weight):
         self.weight = weight
@@ -44,7 +52,7 @@ class WaterBottle(Item):
 
     def __init__(self):
         super().__init__(100)
-        self.name = "WaterBottle"
+        self.name = "Water Bottle"
 
     def info(self):
         print(f"Having a Water Bottle doubles you water limit. Weighs {self.weight}")
@@ -112,7 +120,7 @@ class Watch(Item):
 class Trap(Item):
     def __init__(self):
         super().__init__(50)
-        self.name = "Lighter"
+        self.name = "Trap"
 
     def info(self):
         print(f"This helps you be more effective while hunting. Weighs {self.weight}")
