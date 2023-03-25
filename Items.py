@@ -105,7 +105,7 @@ class FlashLight(Item):
         self.name = "Flashlight"
 
     def info(self):
-        print(f"Makes it easier to find items when searching structures. Weighs {self.weight}")
+        print(f"This makes it easier to find items when searching structures. Weighs {self.weight}")
 
 
 class Watch(Item):
@@ -119,7 +119,7 @@ class Watch(Item):
 
 class Trap(Item):
     def __init__(self):
-        super().__init__(50)
+        super().__init__(70)
         self.name = "Trap"
 
     def info(self):
