@@ -5,11 +5,12 @@ import Items
 
 class Bag:
     def __init__(self, difficulty):
-        startItems = 4-difficulty  # Hard gets 1, medium gets 2, easy gets 3
+        startItemsNum = 4-difficulty  # Hard gets 1, medium gets 2, easy gets 3
         self.__limit = 10
-        self.items = Items.startItems(4-difficulty)
-        self.__length = len(self.items)
-        self.matches = None
+        self.items = Items.startItems(startItemsNum)
+        self.matches = Items.Matches(startItemsNum + 1)
+        self.__length = 0  # This is here to initialize self.__length and nothing else
+        self.__countNumItems()
 
     def totalWeight(self):
         totalWeight = 0
@@ -19,7 +20,10 @@ class Bag:
             return totalWeight + self.matches.getWeight()
         return totalWeight
 
-    def numItems(self):
+    def getNumItems(self):
+        return self.__length
+
+    def __countNumItems(self):
         if self.matches is not None:
             self.__length = 1 + len(self.items)
 
@@ -44,7 +48,7 @@ class Bag:
 
         else:
             self.items.append(item)
-        self.numItems()
+        self.__countNumItems()
 
     def removeRandomItem(self):
         lostItem = self.items.pop(randint(0, len(self.items)-1))
@@ -55,9 +59,9 @@ class Bag:
     def huntBonus(self):
         total = 0
         if Items.Knife() in self.items:
-            total += 9
+            total += 6
         if Items.Trap() in self.items:
-            total += 11
+            total += 10
         return 0
 
     def hasMap(self):
@@ -68,7 +72,7 @@ class Bag:
 
     def canMakeFire(self):
         if len(self.items) != 0:
-            return Items.Matches() is not None or Items.Lighter() in self.items
+            return (self.matches is not None) or (Items.Lighter() in self.items)
 
     def hasWaterBottle(self):
         return Items.WaterBottle() in self.items
@@ -76,11 +80,11 @@ class Bag:
     def shelterBonus(self):
         total = 0
         if Items.Knife() in self.items:
-            total += 10
+            total += 6
         if Items.Tarp() in self.items:
-            total += 10
+            total += 12
         if Items.Rope() in self.items:
-            total += 10
+            total += 12
         return total
 
     def searchBonus(self):
@@ -96,7 +100,7 @@ class Bag:
             else:
                 self.matches.useMatch()
 
-            return 10
+            return 12
         # This returns the bonus that should be used to make fire 10 for a match, 0 without (lighter)
         return 0
 
@@ -131,7 +135,7 @@ class Bag:
                 elif use == "t":
                     if input("Are you sure you want to toss this? enter y if yes -> ") == "y":
                         print(f"You tossed the {self.items.pop(userIndex).name}")
-                self.numItems()  # reset the count of items in bag
+                self.__countNumItems()  # reset the count of items in bag
             except ValueError:
                 print("That was not a number try again.")
             except IndexError:

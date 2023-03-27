@@ -57,7 +57,7 @@ class Player:
                 print("Sleep (s),", end=" ")
             if self.location.hasStructure():
                 print("Check structure (c),", end=" ")
-            if not self.location.hasFire() and self.bag.canMakeFire():
+            if (not self.location.hasFire()) and self.bag.canMakeFire():
                 print("Start Fire (x)", end=" ")
             print("Quit (q)")
 
@@ -138,7 +138,7 @@ class Player:
 
     def __gameReport(self):
         print(f"- You traveled {self.traveled} out of the {self.distance} needed.")
-        print(f"- You had {self.bag.numItems()}")
+        print(f"- You found {self.bag.getNumItems()} items")
         print(f"- You survived for {self.time.getDay()} in game Days.")
         print(f"- It took you {self.time.realTimeElapsed()} minutes.")
         print(f"- You did {self.actionCount} actions")
@@ -174,11 +174,14 @@ class Player:
                 travelCount += 1
             else:
                 break
+        print()
+        self.location = Camp()
+        print()
         self.__useEnergy(energyNeed, energyNeed + 5 + self.penalty)
         self.__addExhaustion(travelCount + 2)
         self.time.travel(travelCount + 1)
         print()
-        self.location = Camp()
+
         self.traveled += self.__findTravelDistance(energyNeed, self.bag.hasMap())
 
         return
@@ -257,7 +260,7 @@ class Player:
 
         self.location.makeShelter(self.bag.shelterBonus() - self.penalty)
         self.__addExhaustion(1)
-        self.__useEnergy(50, 100)
+        self.__useEnergy(25, 35)
         self.time.action()
 
     def sleep(self):
@@ -270,15 +273,17 @@ class Player:
                 self.__addEnergy(randint(30-self.penalty, 45))
                 print("The Shelter helped you sleep")
             else:
-                EnergyLoss = randint(20+self.penalty, 50)
+                EnergyLoss = randint(20+self.penalty, 60)
                 print("It would have been nice to see in a shelter.")
 
             if self.location.hasFire():  # This runs if there is no shelter and no fire
                 self.__addEnergy(randint(-5, 15-self.penalty))
                 print("The fire helped you sleep")
             else:
-                EnergyLoss += randint(10+self.penalty, 20)
+                EnergyLoss += randint(10+self.penalty, 25)
                 print("It would have been nice to sleep, with a fire...")
+            if EnergyLoss > 0:
+                self.__useEnergy(EnergyLoss, EnergyLoss+1)
         else:
             print("You cannot sleep right now. It is not late enough")
 

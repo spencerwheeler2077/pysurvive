@@ -8,9 +8,9 @@ class Camp:
         self.__structure = structure.makeStructure()
         self.__shelter = self.__structure.shelter
         self.__water = self.__structure.hasWater
-        self.__animals = randint(6, 15)
-        self.__plants = randint(15, 56)
-        self.__shelterOdds = randint(20, 35)
+        self.__animals = randint(8, 20)
+        self.__plants = randint(25, 60)
+        self.__shelterOdds = randint(25, 40)
         self.__fireOdds = randint(55, 70)
         self.__info = [self.__structure.message()]
         self.__hasAnimalReport = False
@@ -31,26 +31,28 @@ class Camp:
     def explore(self):
         if randint(1, 100) >= 40:
             self.animalReport()
-        if randint(1, 100) >= 20:
+        if randint(1, 100) >= 30:
             self.plantReport()
-        self.searchWater(20)
+        self.searchWater(25)
 
     def animalReport(self):
         if not self.__hasAnimalReport:
             self.__hasAnimalReport = True
-            if self.__animals > 10:
-                message = "There are a good amount of animals here"
+            if self.__animals > 15:
+                message = "There are a TON of animals here!"
+            elif self.__animals > 10:
+                message = "There are a good amount of animals here."
             else:
-                message = "There arent a lot of animals here"
+                message = "There doesn't seem to be much animal life here..."
             print(message)
             self.__info.append(message)
 
     def plantReport(self):
         if not self.__hasPlantReport:
             self.__hasPlantReport = True
-            if self.__plants < 25:
+            if self.__plants <= 35:
                 message = "There aren't many plants around"
-            elif self.__plants < 45:
+            elif self.__plants <= 50:
                 message = "There is a normal amount of plant life here"
             else:
                 message = "There is a lot of edible plants here!"
@@ -72,7 +74,7 @@ class Camp:
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus
         if huntAttempt <= self.__animals:
-            self.searchWater(15)
+            self.searchWater(0)
             self.__animals -= 1
             return True
         else:
@@ -81,7 +83,7 @@ class Camp:
     def forage(self, itemBonus):
         forageAttempt = randint(1, 100) - itemBonus
         if forageAttempt <= self.__plants:
-            self.searchWater(20)
+            self.searchWater(-5)
             self.__plants -= 1
             return True
         return False

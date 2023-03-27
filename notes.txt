@@ -20,6 +20,8 @@ Major items left to do.
     -play testing
     -adding a save feature
     -move numbers to a file that would be easier to find and change
+    -ADD events
+
 
 Bugs found to be fixed
 

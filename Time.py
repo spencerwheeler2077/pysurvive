@@ -54,9 +54,9 @@ class Time:
         return ((not self.__morning) and
                 (self.__hour >= 8 and
                  self.__hour != 12)) or \
-               (self.__morning and
+               (self.__morning and (
                 (self.__hour < 6) or
-                self.__hour==12)
+                self.__hour == 12))
 
     def realTimeElapsed(self):
         return (time.time() - self.__startTime)//60000

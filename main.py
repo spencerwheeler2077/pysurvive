@@ -14,6 +14,7 @@ class Game:
         else:
             name = "TestPlayer"
             difficulty = strength
+        print()
         self.player = Player(name, difficulty)
 
         self.play()
@@ -36,7 +37,7 @@ class Game:
 
     def welcome(self):
         print("\n---------------------------------\nWelcome to pySurvive!")
-        print('''You are lost in a forest, and must try to escape with your life.
+        print('''        You are lost in a forest, and must try to escape with your life.
         There are many actions available to you that will help you accomplish this
         task. Each of these tasks can be done by typing in the correlating key into
         the console, and then pressing enter. Try your best to do it in the best
