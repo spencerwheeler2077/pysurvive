@@ -62,7 +62,14 @@ class Bag:
             total += 6
         if Items.Trap() in self.items:
             total += 10
-        return 0
+        return total
+
+    def forageBonus(self):
+        total = 0
+        if Items.Knife() in self.items:
+            total += 10
+
+        return total
 
     def hasMap(self):
         return Items.Map() in self.items

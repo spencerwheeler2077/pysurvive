@@ -19,17 +19,17 @@ class Player:
         self.location = Camp()
 
         if difficulty == 1:
-            self.distance = randint(950, 1300)
+            self.distance = randint(950, 1150)
             self.penalty = 0
             self.energy = 1000
         if difficulty == 2:
-            self.distance = randint(1300, 1900)
-            self.penalty = 2
+            self.distance = randint(1150, 1350)
+            self.penalty = 3
             self.energy = 900
         if difficulty == 3:
-            self.distance = randint(1900, 2300)
-            self.penalty = 5
-            self.energy = 800
+            self.distance = randint(1350, 1600)
+            self.penalty = 6
+            self.energy = 850
 
         self.actionMap = {
             "t": self.travel,
@@ -193,7 +193,7 @@ class Player:
             return int(((3 * energyUsed) // 5 - self.penalty * 5 - self.bag.totalWeight() // 2) * ranFloat(.6, 1))
 
     def hunt(self):
-        maxEnergy = 40 + self.penalty
+        maxEnergy = 35 + self.penalty
         if self.energy < maxEnergy:
             print("You don't have enough energy to go hunting!")
             return
@@ -216,14 +216,14 @@ class Player:
         print()
 
     def forage(self):
-        minEnergy = 20
-        maxEnergy = 37 + self.penalty
+        minEnergy = 15
+        maxEnergy = 30 + self.penalty
         if self.energy < maxEnergy:
             print("You don't have enough energy!")
             return
 
         print("You started looking for food")
-        success = self.location.forage(self.bag.huntBonus() - self.penalty)
+        success = self.location.forage(self.bag.forageBonus() - self.penalty)
         if success:
             print("You were successful!")
             self.bag.addItem(Items.Food(35, 100))
@@ -246,7 +246,7 @@ class Player:
         self.location.explore()
         self.__addExhaustion(1)
         self.time.action()
-        self.__useEnergy(15, 30)
+        self.__useEnergy(10+self.penalty, 20+self.penalty)
         print()
 
     def info(self):
@@ -273,7 +273,7 @@ class Player:
                 self.__addEnergy(randint(30-self.penalty, 45))
                 print("The Shelter helped you sleep")
             else:
-                EnergyLoss = randint(20+self.penalty, 60)
+                EnergyLoss += randint(20+self.penalty, 60)
                 print("It would have been nice to see in a shelter.")
 
             if self.location.hasFire():  # This runs if there is no shelter and no fire

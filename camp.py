@@ -10,7 +10,7 @@ class Camp:
         self.__water = self.__structure.hasWater
         self.__animals = randint(8, 20)
         self.__plants = randint(25, 60)
-        self.__shelterOdds = randint(25, 40)
+        self.__shelterOdds = randint(25, 50)
         self.__fireOdds = randint(55, 70)
         self.__info = [self.__structure.message()]
         self.__hasAnimalReport = False
@@ -73,8 +73,9 @@ class Camp:
 
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus
+        self.searchWater(0)
         if huntAttempt <= self.__animals:
-            self.searchWater(0)
+
             self.__animals -= 1
             return True
         else:
@@ -82,8 +83,8 @@ class Camp:
 
     def forage(self, itemBonus):
         forageAttempt = randint(1, 100) - itemBonus
+        self.searchWater(-5)
         if forageAttempt <= self.__plants:
-            self.searchWater(-5)
             self.__plants -= 1
             return True
         return False
