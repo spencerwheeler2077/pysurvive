@@ -13,6 +13,12 @@ class Item:
     def __init__(self, weight):
         self.weight = weight
         self.name = "Item"
+        self.dispose = False
+        self.huntBonus = 0
+        self.forageBonus = 0
+        self.shelterBonus = 0
+        self.fireBonus = 0
+        self.searchBonus = 0
 
     def getWeight(self):
         return self.weight
@@ -35,7 +41,7 @@ class Map(Item):
         self.name = "Map"
 
     def info(self):
-        print(f"Map makes traveling more efficient, and lets you see how far you need to go until safety. Weighs {self.weight}")
+        print(f"Map makes traveling more efficient, and lets you see how far you need to go until safety.\nWeighs {self.weight}")
 
 
 class Knife(Item):
@@ -43,6 +49,10 @@ class Knife(Item):
     def __init__(self):
         super().__init__(30)
         self.name = "Knife"
+        self.huntBonus = 4
+        self.forageBonus = 3
+        self.shelterBonus = 6
+        self.fireBonus = 2
 
     def info(self):
         print(f"Having a knife makes hunting, foraging, and shelter making more effective. Weighs {self.weight}")
@@ -63,6 +73,7 @@ class Tarp(Item):
     def __init__(self):
         super().__init__(100)
         self.name = "Tarp"
+        self.shelterBonus = 20
 
     def info(self):
         print(f"A Tarp makes making a shelter significantly easier. Weighs {self.weight}")
@@ -74,9 +85,11 @@ class Matches(Item):
         super().__init__(1)
         self.name = "Matches"
         self._number = count
+        self.fireBonus = 12
 
     def addMatch(self, num):
         self._number += num
+
     def useMatch(self):
         self._number -= 1
 
@@ -92,17 +105,18 @@ class Matches(Item):
 
 class Lighter(Item):
     def __init__(self):
-        super().__init__(20)
+        super().__init__(15)
         self.name = "Lighter"
 
     def info(self):
-        print(f"Allows you to try to start a fire, less successful than matches but can be used multiple times. Weighs {self.weight}")
+        print(f"Allows you to try to start a fire, less successful than matches but can be unlimited times. \nWeighs {self.weight}")
 
 
 class FlashLight(Item):
     def __init__(self):
-        super().__init__(30)
+        super().__init__(15)
         self.name = "Flashlight"
+        self.fireBonus = 2
 
     def info(self):
         print(f"This makes it easier to find items when searching structures. Weighs {self.weight}")
@@ -119,8 +133,9 @@ class Watch(Item):
 
 class Trap(Item):
     def __init__(self):
-        super().__init__(70)
+        super().__init__(75)
         self.name = "Trap"
+        self.huntBonus = 8
 
     def info(self):
         print(f"This helps you be more effective while hunting. Weighs {self.weight}")
@@ -130,6 +145,7 @@ class Rope(Item):
     def __init__(self):
         super().__init__(30)
         self.name = "Rope"
+        self.shelterBonus = 10
 
     def info(self):
         print(f"This Rope will be useful when making a shelter! Weights {self.weight}")
@@ -140,6 +156,7 @@ class Food(Item):
         super().__init__(20)
         self.energyGiven = random.randint(min, max)
         self.name = self.__giveName()
+        self.dispose = True
 
     def use(self):
         print(f"You ate the {self.name} and gained {self.energyGiven} energy")

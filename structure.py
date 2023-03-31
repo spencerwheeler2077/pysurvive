@@ -4,17 +4,17 @@ import Items
 
 def makeStructure():
     randNum = randint(1, 100)
-    if randNum < 66:
+    if randNum < 65:
         return NoStructure()
-    if randNum < 70:
+    if randNum < 69:
         return Car()
-    if randNum < 72:
+    if randNum < 71:
         return Cabin()
-    if randNum < 78:
+    if randNum < 77:
         return BigTree()
-    if randNum < 81:
+    if randNum < 80:
         return Cave()
-    if randNum < 87:
+    if randNum < 86:
         return River()
     if randNum < 91:
         return Cliff()
@@ -41,7 +41,7 @@ class Structure:
         elif (randint(1, 100) + itemBonus) <= self._itemChance:
             self._maxItems -= 1
             print("You found an item!")
-            return self._items[randint(0, len(self._items) - 1)]
+            return self._items.pop(randint(0, len(self._items) - 1))
         else:
             print("Couldn't find anything in the structure. Maybe you should try again.")
             return None

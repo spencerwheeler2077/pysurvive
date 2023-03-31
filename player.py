@@ -188,9 +188,9 @@ class Player:
 
     def __findTravelDistance(self, energyUsed, hasMap):
         if hasMap:
-            return int((3 * energyUsed) // 5 - self.penalty * 5 - self.bag.totalWeight() // 2)
+            return int((4 * energyUsed) // 5 - self.penalty * 5 - self.bag.totalWeight() // 2)
         else:
-            return int(((3 * energyUsed) // 5 - self.penalty * 5 - self.bag.totalWeight() // 2) * ranFloat(.6, 1))
+            return int(((4 * energyUsed) // 5 - self.penalty * 5 - self.bag.totalWeight() // 2) * ranFloat(.6, 1))
 
     def hunt(self):
         maxEnergy = 35 + self.penalty
@@ -311,8 +311,7 @@ class Player:
 
     def fire(self):
         if self.bag.canMakeFire():
-            bonus = self.bag.useMatch()
-            self.location.makeFire(bonus)
+            self.location.makeFire(self.bag.fireBonus())
             self.__addExhaustion(1)
             self.__useEnergy(25, 50 + self.penalty)
             self.time.action()

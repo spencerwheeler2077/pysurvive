@@ -4,14 +4,14 @@ from random import randint
 
 class Camp:
 
-    def __init__(self):
+    def __init__(self, penalty):
         self.__structure = structure.makeStructure()
         self.__shelter = self.__structure.shelter
         self.__water = self.__structure.hasWater
-        self.__animals = randint(8, 20)
-        self.__plants = randint(25, 60)
-        self.__shelterOdds = randint(25, 50)
-        self.__fireOdds = randint(55, 70)
+        self.__animals = randint(5, 17) - penalty
+        self.__plants = randint(25, 60) - penalty
+        self.__shelterOdds = randint(25, 50) - penalty
+        self.__fireOdds = randint(55, 70) - penalty
         self.__info = [self.__structure.message()]
         self.__hasAnimalReport = False
         self.__hasPlantReport = False

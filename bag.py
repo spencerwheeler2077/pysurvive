@@ -54,22 +54,6 @@ class Bag:
         lostItem = self.items.pop(randint(0, len(self.items)-1))
         print(f"You lost a {lostItem.name}")
 
-    # Since You shouldn't have expect to have more than 10 items these searches shouldn't matter too much even though
-    # They are inefficient. This could be improved.
-    def huntBonus(self):
-        total = 0
-        if Items.Knife() in self.items:
-            total += 6
-        if Items.Trap() in self.items:
-            total += 10
-        return total
-
-    def forageBonus(self):
-        total = 0
-        if Items.Knife() in self.items:
-            total += 10
-
-        return total
 
     def hasMap(self):
         return Items.Map() in self.items
@@ -84,32 +68,43 @@ class Bag:
     def hasWaterBottle(self):
         return Items.WaterBottle() in self.items
 
+    def huntBonus(self):
+        total = 0
+        for i in self.items:
+            total += i.huntBonus
+        return total
+
+    def forageBonus(self):
+        total = 0
+        for i in self.items:
+            total += i.forageBonus
+        return total
+
     def shelterBonus(self):
         total = 0
-        if Items.Knife() in self.items:
-            total += 6
-        if Items.Tarp() in self.items:
-            total += 12
-        if Items.Rope() in self.items:
-            total += 12
+        for i in self.items:
+            total += i.shelterBonus
         return total
 
     def searchBonus(self):
-        if Items.FlashLight() in self.items:
-            return 20
-        else:
-            return 0
+        total = 0
+        for i in self.items:
+            total += i.searchBonus
+        return total
 
-    def useMatch(self):
+    def fireBonus(self):
+        bonus = 0
         if self.matches is not None:
             if self.matches.getCount() == 1:
                 self.matches = None
             else:
                 self.matches.useMatch()
 
-            return 12
+            bonus += 12
         # This returns the bonus that should be used to make fire 10 for a match, 0 without (lighter)
-        return 0
+        for i in self.items:
+            bonus += i.fireBonus
+        return bonus
 
     def useBag(self):
 
@@ -137,8 +132,10 @@ class Bag:
                     self.items[userIndex].info()
                 use = input("Do you want to use this item? Enter y for yes, t to toss it, anything else for no. -> ")
                 if use == "y":
-                    totalEnergy += self.items[userIndex].use()
-                    self.items.pop(userIndex)
+                    item = self.items[userIndex]
+                    totalEnergy += item.use()
+                    if item.dispose:
+                        self.items.pop(userIndex)
                 elif use == "t":
                     if input("Are you sure you want to toss this? enter y if yes -> ") == "y":
                         print(f"You tossed the {self.items.pop(userIndex).name}")
