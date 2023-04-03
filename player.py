@@ -16,7 +16,7 @@ class Player:
         self.traveled = 0
         self.exhaustion = 0
         self.time = Time()
-        self.location = Camp()
+
 
         if difficulty == 1:
             self.distance = randint(950, 1150)
@@ -31,6 +31,7 @@ class Player:
             self.penalty = 6
             self.energy = 850
 
+        self.location = Camp(self.penalty)
         self.actionMap = {
             "t": self.travel,
             "h": self.hunt,
@@ -115,10 +116,10 @@ class Player:
         if self.water < 1:
             self.__death("You have run out of water.")
 
-    def __useEnergy(self, small, most):
+    def __useEnergy(self, least, most):
 
-        self.__useWater(small * 2, most * 2)
-        energySpent = randint(small + self.penalty, most)
+        self.__useWater(least * 2, most * 2)
+        energySpent = randint(least, most)
         print(f"You spent {energySpent} energy")
         self.energy = self.energy - energySpent
         if self.energy < 1:
@@ -175,7 +176,7 @@ class Player:
             else:
                 break
         print()
-        self.location = Camp()
+        self.location = Camp(self.penalty)
         print()
         self.__useEnergy(energyNeed, energyNeed + 5 + self.penalty)
         self.__addExhaustion(travelCount + 2)
@@ -273,8 +274,8 @@ class Player:
                 self.__addEnergy(randint(30-self.penalty, 45))
                 print("The Shelter helped you sleep")
             else:
-                EnergyLoss += randint(20+self.penalty, 60)
-                print("It would have been nice to see in a shelter.")
+                EnergyLoss += randint(50+self.penalty, 80)
+                print("It would have been nice to sleep in a shelter.")
 
             if self.location.hasFire():  # This runs if there is no shelter and no fire
                 self.__addEnergy(randint(-5, 15-self.penalty))
@@ -283,7 +284,7 @@ class Player:
                 EnergyLoss += randint(10+self.penalty, 25)
                 print("It would have been nice to sleep, with a fire...")
             if EnergyLoss > 0:
-                self.__useEnergy(EnergyLoss, EnergyLoss+1)
+                self.__useEnergy(EnergyLoss, EnergyLoss+self.penalty)
         else:
             print("You cannot sleep right now. It is not late enough")
 
