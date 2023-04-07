@@ -206,6 +206,7 @@ class Player:
         success = self.location.hunt(self.bag.huntBonus() - self.penalty)
         if success:
             print("You were successful!")
+            self.__huntTotals += 1
             if self.location.fire:
                 self.bag.addItem(Items.Food(250, 525))
             else:
@@ -231,6 +232,7 @@ class Player:
         if success:
             print("You were successful!")
             self.bag.addItem(Items.Food(35, 100))
+            self.__forageTotals += 1
         else:
             print("You didn't find any food.")
         self.__addExhaustion(1)
@@ -256,7 +258,6 @@ class Player:
     def info(self):
         # This should report all the things found out about the area
         self.location.info()
-        print('time elapsed', self.time.realTimeElapsed())
 
     def makeShelter(self):
         if self.location.hasShelter():

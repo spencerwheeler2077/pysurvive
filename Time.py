@@ -62,8 +62,5 @@ class Time:
                 self.__hour == 12))
 
     def realTimeElapsed(self):
-        print(self.__startTime)
-        now = time.time()
-        print(now)
-        return (now - self.__startTime) // 60
+        return (time.time() - self.__startTime) // 60
 

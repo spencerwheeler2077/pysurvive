@@ -84,6 +84,7 @@ class Camp:
         if huntAttempt <= self.__animals:
 
             self.__animals -= 1
+            self.__foundAnimalCount += 1
             return True
         else:
             return False
@@ -93,6 +94,7 @@ class Camp:
         self.searchWater(-5)
         if forageAttempt <= self.__plants:
             self.__plants -= 1
+            self.__foundPlantCount += 1
             return True
         return False
 
