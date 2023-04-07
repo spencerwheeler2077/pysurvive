@@ -37,12 +37,12 @@ class Game:
 
     def welcome(self):
         print("\n---------------------------------\nWelcome to pySurvive!")
-        print('''        You are lost in a forest, and must try to escape with your life.
-        There are many actions available to you that will help you accomplish this
-        task. Each of these tasks can be done by typing in the correlating key into
-        the console, and then pressing enter. Try your best to do it in the best
-        time, taking the least number of in game days. (very correlated with number
-        of actions you take.) Good Luck!\n---------------------------------\n''')
+        print('''\nYou are lost in a forest, and must try to escape with your life.
+There are many actions available to you that will help you accomplish this
+task. Each of these tasks can be done by typing in the correlating key into
+the console, and then pressing enter. Try your best to do it in the best
+time, taking the least number of in game days. (very correlated with number
+of actions you take.) Good Luck!\n---------------------------------\n''')
 
 
 if __name__ == "__main__":

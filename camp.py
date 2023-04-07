@@ -4,8 +4,11 @@ from random import randint
 
 class Camp:
 
-    def __init__(self, penalty):
-        self.__structure = structure.makeStructure()
+    def __init__(self, penalty, start=False):
+        if start:
+            self.__structure = structure.makeStructure(72)
+        else:
+            self.__structure = structure.makeStructure()
         self.__shelter = self.__structure.shelter
         self.__water = self.__structure.hasWater
         self.__animals = randint(5, 17) - penalty

@@ -2,8 +2,8 @@ from random import randint
 import Items
 
 
-def makeStructure():
-    randNum = randint(1, 100)
+def makeStructure(minimum=1):
+    randNum = randint(minimum, 100)
     if randNum < 65:
         return NoStructure()
     if randNum < 69:

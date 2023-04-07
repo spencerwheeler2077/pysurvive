@@ -2,7 +2,7 @@ import random
 
 
 def startItems(difficulty):
-    items = [Map(), Lighter(), Knife(), Watch(), Food(100, 100), WaterBottle()]
+    items = [Map(), Lighter(), Knife(), Watch(), WaterBottle()]
     result = []
     for i in range(difficulty):
         result.append(items.pop(random.randint(0, len(items)-1)))

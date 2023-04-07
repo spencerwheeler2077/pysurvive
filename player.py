@@ -31,7 +31,7 @@ class Player:
             self.penalty = 6
             self.energy = 850
 
-        self.location = Camp(self.penalty)
+        self.location = Camp(self.penalty, True)
         self.actionMap = {
             "t": self.travel,
             "h": self.hunt,

@@ -116,9 +116,9 @@ class Bag:
         totalEnergy = 0
         while True:
             self.__printItems()
-            print("Enter a number to check an item. If you want to exit the bag enter exit")
+            print("Enter a number to check an item. If you want to exit the bag, enter n ")
             userInput = input("-> ")
-            if userInput == "exit":
+            if userInput == "n":
                 return totalEnergy
             try:
                 if self.matches is not None:
