@@ -18,6 +18,8 @@ class Camp:
         self.__info = [self.__structure.message()]
         self.__hasAnimalReport = False
         self.__hasPlantReport = False
+        self.__foundAnimalCount = 0
+        self.__foundPlantCount = 0
         if self.__water:
             self.__info.append("There is water here.")
         if self.__shelter:
@@ -29,6 +31,8 @@ class Camp:
         print("These are the notes you have taken about this location...\n")
         for i in self.__info:
             print("- " + i)
+        print(f"You have hunted {self.__foundAnimalCount} animals here.")
+        print(f"You have foraged successfully {self.__foundPlantCount} times here.")
         print("\nMaybe you can explore this place more to find more out!")
 
     def explore(self):

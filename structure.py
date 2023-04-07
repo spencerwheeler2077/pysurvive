@@ -3,27 +3,15 @@ import Items
 
 
 def makeStructure(minimum=1):
+    rareStructures = [Car(), Cabin()]
+    commonStructures = [BigTree(), Cave(), River(), Cliff(), Campsite(), Lake()]
     randNum = randint(minimum, 100)
     if randNum < 65:
         return NoStructure()
-    if randNum < 69:
-        return Car()
     if randNum < 71:
-        return Cabin()
-    if randNum < 77:
-        return BigTree()
-    if randNum < 80:
-        return Cave()
-    if randNum < 86:
-        return River()
-    if randNum < 91:
-        return Cliff()
-    if randNum < 95:
-        return Campsite()
-    if randNum < 100:
-        return Lake()
+        return rareStructures[randint(0, len(rareStructures)-1)]
     else:
-        return NoStructure()
+        return commonStructures[randint(0, len(commonStructures)-1)]
 
 
 class Structure:

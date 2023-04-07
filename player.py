@@ -16,7 +16,8 @@ class Player:
         self.traveled = 0
         self.exhaustion = 0
         self.time = Time()
-
+        self.__huntTotals = 0
+        self.__forageTotals = 0
 
         if difficulty == 1:
             self.distance = randint(950, 1150)
@@ -141,8 +142,10 @@ class Player:
         print(f"- You traveled {self.traveled} out of the {self.distance} needed.")
         print(f"- You found {self.bag.getNumItems()} items")
         print(f"- You survived for {self.time.getDay()} in game Days.")
-        print(f"- It took you {self.time.realTimeElapsed()} minutes.")
+        print(f"- You successfully hunted {self.__huntTotals} times.")
+        print(f"- You successfully foraged {self.__forageTotals} times.")
         print(f"- You did {self.actionCount} actions")
+        print(f"- It took you {self.time.realTimeElapsed()} minutes.")
         print("\nThanks for playing!")
 
     def __addEnergy(self, amount):
@@ -253,6 +256,7 @@ class Player:
     def info(self):
         # This should report all the things found out about the area
         self.location.info()
+        print('time elapsed', self.time.realTimeElapsed())
 
     def makeShelter(self):
         if self.location.hasShelter():
