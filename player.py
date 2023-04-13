@@ -91,7 +91,7 @@ class Player:
                     return
             self.actionMap[action]()
             self.actionCount += 1
-            if action != "i" or "b":
+            if action != "i" and "b":
                 self.__causeEvent()
 
         except KeyError:
@@ -327,12 +327,13 @@ class Player:
     def __causeEvent(self):
         ranInt = randint(1, 100)
         print(f'{ranInt} event roll') #TODO delete this
-        if ranInt >= 97:
+        if ranInt >= 93:
             events = [self.__eventGainItem, self.__eventLooseItem, self.__eventFireGoesOut, self.__eventFindStructure,
                       self.__eventShelterBreaks, self.__eventGainEnergy, self.__eventLooseEnergy, self.__eventTravel,
                       self.__eventTravelBack, ]
 
             events[randint(0, len(events)-1)]()
+
 
 
     def __eventGainItem(self):
@@ -342,8 +343,9 @@ class Player:
 
 
     def __eventLooseItem(self):
-        item = self.bag.removeRandomItem()
-        print(f"\nYou set your {item} down and can't find it now! You will have to make do without it.\n")
+        if not self.bag.isEmpty():
+            item = self.bag.removeRandomItem()
+            print(f"\nYou set your {item.name} down and can't find it now! You will have to make do without it.\n")
 
     def __eventFireGoesOut(self):
         if self.location.fire:
@@ -377,7 +379,7 @@ class Player:
         print("\nYou wandered off from your camp, and couldn't find your way back. You will have to make camp here.")
         self.location = Camp(self.penalty)
         self.__useEnergy(10, 25 + self.penalty)
-        self.traveled -= randint(50, 100)
+        self.traveled -= randint(25, 75)
 
     def __eventFindStructure(self):
         print("\nNOT FINISHED")

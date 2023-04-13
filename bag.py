@@ -23,6 +23,9 @@ class Bag:
     def getNumItems(self):
         return self.__length
 
+    def isEmpty(self):
+        return self.__length == 0
+
     def __countNumItems(self):
         if self.matches is not None:
             self.__length = 1 + len(self.items)
@@ -36,7 +39,7 @@ class Bag:
             print("You can't put any more items so you have to toss this instead.")
             return
         if self.__length >= self.__limit - 3:
-            print(f"Warning, you have {self.__length} items, you can only have 10 in your bag")
+            print(f"Warning, you have {self.__length + 1} items, you can only have 10 in your bag")
 
 
         print(f"{item.name} was added to your bag")
@@ -52,16 +55,21 @@ class Bag:
 
     def removeRandomItem(self):
         itemIndex = randint(0, self.__length-1)
-        if itemIndex == 0 and self.matches is not None:
-            self.matches.useMatch(2)
-            print(f"You lost 2 Matches!")
-            if self.matches.getCount() <= 0:
-                self.matches = None
-            return
 
-        else:
-            lostItem = self.items.pop(itemIndex)
-            print(f"You lost a {lostItem.name}")
+        if self.matches is not None:
+            if itemIndex == 0:
+                self.matches.useMatch(2)
+                print(f"You lost 2 Matches!")
+                if self.matches.getCount() <= 0:
+                    self.matches = None
+                self.__countNumItems()
+                return Items.Matches(1)
+            itemIndex -= 1
+
+        itemIndex
+        lostItem = self.items.pop(itemIndex)
+        self.__countNumItems()
+        return lostItem
 
     def hasMap(self):
         return Items.Map() in self.items
