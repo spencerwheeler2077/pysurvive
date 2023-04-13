@@ -91,6 +91,8 @@ class Player:
                     return
             self.actionMap[action]()
             self.actionCount += 1
+            if action != "i" or "b":
+                self.__causeEvent()
 
         except KeyError:
             print("Invalid Action")
@@ -321,3 +323,63 @@ class Player:
             self.__addExhaustion(1)
             self.__useEnergy(25, 50 + self.penalty)
             self.time.action()
+
+    def __causeEvent(self):
+        ranInt = randint(1, 100)
+        print(f'{ranInt} event roll') #TODO delete this
+        if ranInt >= 97:
+            events = [self.__eventGainItem, self.__eventLooseItem, self.__eventFireGoesOut, self.__eventFindStructure,
+                      self.__eventShelterBreaks, self.__eventGainEnergy, self.__eventLooseEnergy, self.__eventTravel,
+                      self.__eventTravelBack, ]
+
+            events[randint(0, len(events)-1)]()
+
+
+    def __eventGainItem(self):
+
+        print("\nYou found something on the ground!")
+        self.bag.addItem(Items.randomItem())
+
+
+    def __eventLooseItem(self):
+        item = self.bag.removeRandomItem()
+        print(f"\nYou set your {item} down and can't find it now! You will have to make do without it.\n")
+
+    def __eventFireGoesOut(self):
+        if self.location.fire:
+            print("\nIt started to rain, you weren't able to reach your fire in time, and it went out.")
+            self.location.fire = False
+            self.location.fireMessage = "Your fire went out!"
+        return
+
+    def __eventShelterBreaks(self):
+        if self.location.hasShelter():
+            print("\nA huge wind storm came, and destroyed your shelter, you will have to rebuild it!")
+            self.location.destroyShelter()
+
+    def __eventGainEnergy(self):
+        print("\nYou got a lot of sun today and you are feeling great!")
+        self.__addEnergy(randint(15, 100))
+
+
+    def __eventLooseEnergy(self):
+        print("\nIts been raining all day and it has really sapped your energy.")
+        self.__useEnergy(25+self.penalty, 100)
+
+    def __eventTravel(self):
+        print("\nYou wandered off from your camp, and couldn't find your way back. You will have to make camp here.")
+        self.location = Camp(self.penalty)
+        self.__useEnergy(10, 25+self.penalty)
+        self.traveled += randint(50, 100)
+
+
+    def __eventTravelBack(self):
+        print("\nYou wandered off from your camp, and couldn't find your way back. You will have to make camp here.")
+        self.location = Camp(self.penalty)
+        self.__useEnergy(10, 25 + self.penalty)
+        self.traveled -= randint(50, 100)
+
+    def __eventFindStructure(self):
+        print("\nNOT FINISHED")
+        #TODO
+

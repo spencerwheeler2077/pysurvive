@@ -11,29 +11,46 @@ class Camp:
             self.__structure = structure.makeStructure()
         self.__shelter = self.__structure.shelter
         self.__water = self.__structure.hasWater
-        self.__animals = randint(5, 17) - penalty
-        self.__plants = randint(25, 60) - penalty
-        self.__shelterOdds = randint(25, 50) - penalty
-        self.__fireOdds = randint(55, 70) - penalty
-        self.__info = [self.__structure.message()]
+        self.__animals = randint(5, 17)
+        self.__plants = randint(25, 60)
+        self.__shelterOdds = randint(25, 50)
+        self.__fireOdds = randint(55, 70)
+        self.__info = []
         self.__hasAnimalReport = False
         self.__hasPlantReport = False
         self.__foundAnimalCount = 0
         self.__foundPlantCount = 0
+
         if self.__water:
             self.__info.append("There is water here.")
         if self.__shelter:
-            self.__info.append(f"You can use the {str(self.__structure)} here as a shelter!")
+            self.__shelterMessage = f"You can use the {str(self.__structure)} here as a shelter!"
+        else:
+            self.__shelterMessage = "You don't have shelter here"
         self.fire = False
+        self.fireMessage = "You haven't started a fire here"
         print(self.__structure.message())
 
     def info(self):
         print("These are the notes you have taken about this location...\n")
         for i in self.__info:
             print("- " + i)
-        print(f"You have hunted {self.__foundAnimalCount} animals here.")
-        print(f"You have foraged successfully {self.__foundPlantCount} times here.")
+        print(f"- There is {self.__structure} here.")
+        print("- " + self.__shelterMessage)
+        print("- " + self.fireMessage)
+        print(f"- You have hunted {self.__foundAnimalCount} animals here.")
+        print(f"- You have foraged successfully {self.__foundPlantCount} times here.")
         print("\nMaybe you can explore this place more to find more out!")
+
+    def findStructure(self):
+        self.__structure = structure.makeStructure(64)
+        if not self.__water and self.__structure.hasWater:
+            self.__water = True
+            print("You found water!")
+            self.__info.append("You found water here!")
+        if self.__structure.shelter:
+            self.__shelter = True
+
 
     def explore(self):
         if randint(1, 100) >= 40:
@@ -78,6 +95,10 @@ class Camp:
     def hasStructure(self):
         return self.__structure != structure.NoStructure()
 
+    def destroyShelter(self):
+        self.__shelter = False
+        self.__shelterMessage = "Your shelter was Destroyed!"
+
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus
         self.searchWater(0)
@@ -109,7 +130,7 @@ class Camp:
     def makeShelter(self, itemBonus):
         shelterAttempt = randint(1, 100) - itemBonus
         if shelterAttempt <= self.__shelterOdds:
-            self.__info.append("You have made a shelter at this site.")
+            self.__shelterMessage = "You have made a shelter at this site."
             self.__shelter = True
             print("You successfully made a shelter here")
         else:
@@ -119,7 +140,7 @@ class Camp:
     def makeFire(self, itemBonus):
         fireAttempt = randint(1, 100) - itemBonus
         if fireAttempt <= self.__fireOdds:
-            self.__info.append("You have started a fire at this site.")
+            self.fireMessage = "You have started a fire at this site."
             self.fire = True
             print("You successfully made a fire!")
         else:
@@ -128,3 +149,4 @@ class Camp:
     def itemHunt(self, itemBonus):
         print(f"You checked the {str(self.__structure)}")
         return self.__structure.takeItem(itemBonus)
+

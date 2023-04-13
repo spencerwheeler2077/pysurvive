@@ -6,7 +6,7 @@ def makeStructure(minimum=1):
     rareStructures = [Car(), Cabin()]
     commonStructures = [BigTree(), Cave(), River(), Cliff(), Campsite(), Lake()]
     randNum = randint(minimum, 100)
-    if randNum < 65:
+    if randNum < 63:
         return NoStructure()
     if randNum < 71:
         return rareStructures[randint(0, len(rareStructures)-1)]
@@ -51,7 +51,7 @@ class NoStructure(Structure):
         self.shelter = False
 
     def __str__(self):
-        return "Nothing is here"
+        return "nothing"
 
 
 class Car(Structure):
@@ -66,7 +66,7 @@ class Car(Structure):
         return "There is a abandoned car here!"
 
     def __str__(self):
-        return "Car"
+        return "a car"
 
 
 class Cabin(Structure):
@@ -81,7 +81,7 @@ class Cabin(Structure):
         return "There is a abandoned cabin here!"
 
     def __str__(self):
-        return "Cabin"
+        return "a cabin"
 
 
 class Cave(Structure):
@@ -96,7 +96,7 @@ class Cave(Structure):
         return "There is a cave here!"
 
     def __str__(self):
-        return "Cave"
+        return "a cave"
 
 
 class BigTree(Structure):
@@ -112,7 +112,7 @@ class BigTree(Structure):
         return "There is a big tree here!"
 
     def __str__(self):
-        return "Big Tree"
+        return "a big tree"
 
 
 class Campsite(Structure):
@@ -128,7 +128,7 @@ class Campsite(Structure):
         return "There is a abandoned campsite here!"
 
     def __str__(self):
-        return "Abandoned Campsite"
+        return "an abandoned campsite"
 
 
 # TODO add airplane
@@ -146,7 +146,7 @@ class Cliff(Structure):
         return "You found a cliff!"
 
     def __str__(self):
-        return "Base of Cliff"
+        return "a base of cliff"
 
 
 class River(Structure):
@@ -163,7 +163,7 @@ class River(Structure):
         return "There is a river here!"
 
     def __str__(self):
-        return "River"
+        return "a river"
 
 
 class Lake(Structure):
@@ -180,4 +180,4 @@ class Lake(Structure):
         return "There is a lake here!"
 
     def __str__(self):
-        return "Lake"
+        return "a lake"

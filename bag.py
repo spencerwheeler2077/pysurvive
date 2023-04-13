@@ -51,9 +51,17 @@ class Bag:
         self.__countNumItems()
 
     def removeRandomItem(self):
-        lostItem = self.items.pop(randint(0, len(self.items)-1))
-        print(f"You lost a {lostItem.name}")
+        itemIndex = randint(0, self.__length-1)
+        if itemIndex == 0 and self.matches is not None:
+            self.matches.useMatch(2)
+            print(f"You lost 2 Matches!")
+            if self.matches.getCount() <= 0:
+                self.matches = None
+            return
 
+        else:
+            lostItem = self.items.pop(itemIndex)
+            print(f"You lost a {lostItem.name}")
 
     def hasMap(self):
         return Items.Map() in self.items
@@ -118,7 +126,7 @@ class Bag:
             self.__printItems()
             print("Enter a number to check an item. If you want to exit the bag, enter n ")
             userInput = input("-> ")
-            if userInput == "n":
+            if userInput == "n" or userInput == "exit":
                 return totalEnergy
             try:
                 if self.matches is not None:

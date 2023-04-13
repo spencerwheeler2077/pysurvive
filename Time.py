@@ -8,7 +8,7 @@ class Time:
         self.__morning = True
         self.__hour = 8
         self.__startTime = time.time()
-        print(f"THIS IS THE TIME {self.__startTime}")
+
 
     def __str__(self):
         return f"Day-{self.__day} {self.__hour}{self.__ampmstr()}"
@@ -62,5 +62,5 @@ class Time:
                 self.__hour == 12))
 
     def realTimeElapsed(self):
-        return (time.time() - self.__startTime) // 60
+        return int((time.time() - self.__startTime) / 60)
 

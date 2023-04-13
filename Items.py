@@ -9,7 +9,15 @@ def startItems(difficulty):
     return result
 
 
+def randomItem():
+
+    items = [Map(), Lighter(), Knife(), Watch(), WaterBottle(), Tarp(), Matches(2),
+             Lighter(), FlashLight(), Trap(), Rope(), Food(20, 100)]
+    return items[random.randint(0, len(items)-1)]
+
+
 class Item:
+
     def __init__(self, weight):
         self.weight = weight
         self.name = "Item"
@@ -90,8 +98,8 @@ class Matches(Item):
     def addMatch(self, num):
         self._number += num
 
-    def useMatch(self):
-        self._number -= 1
+    def useMatch(self, num=1):
+        self._number -= num
 
     def getCount(self):
         return self._number
