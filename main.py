@@ -54,9 +54,15 @@ of actions you take.) Good Luck!\n---------------------------------\n''')
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        print(sys.argv[1])
+    if len(sys.argv) == 2:
         player = save.load(sys.argv[1])
         Game(player=player)
+    if len(sys.argv) >= 3:
+        if sys.argv[1] == "delete":
+            save.delete(sys.argv[2])
+            exit(1)
+        print("Too many arguments. Or bad arguments")
+        print("No arguments starts a new game, One will search if any there are any past games saved with the name" +
+              "two arguments only works if the first is delete, and the third is a file name you would like to delete.")
     else:
         Game()
