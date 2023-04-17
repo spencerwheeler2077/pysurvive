@@ -146,7 +146,7 @@ class Cliff(Structure):
         return "You found a cliff!"
 
     def __str__(self):
-        return "a base of cliff"
+        return "a base of a cliff"
 
 
 class River(Structure):

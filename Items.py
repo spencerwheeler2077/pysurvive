@@ -175,27 +175,39 @@ class Food(Item):
 
     def __giveName(self):
         if self.energyGiven < 40:
+            self.weight = 5
             return "Wild Greens"
         elif self.energyGiven < 60:
+            self.weight = 7
             return "Wild Berries"
         elif self.energyGiven < 75:
+            self.weight = 8
             return "Mushrooms"
         elif self.energyGiven <= 100:
+            self.weight = 10
             return "Nuts"
         # 150 - 250 unCooked
         elif self.energyGiven < 175:
+            self.weight = 25
             return "Raw Squirrel"
         elif self.energyGiven < 185:
+            self.weight = 30
             return "Raw Snake"
         elif self.energyGiven < 215:
+            self.weight = 35
             return "Raw Rabbit"
         elif self.energyGiven < 255:
+            self.weight = 30
             return "Raw Fish"
         elif self.energyGiven < 310:
+            self.weight = 20
             return "Cooked Squirrel"
         elif self.energyGiven < 340:
+            self.weight = 25
             return "Cooked Snake"
         elif self.energyGiven < 400:
+            self.weight = 25
             return "Cooked Fish"
         else:
+            self.weight = 30
             return "Cooked Rabbit"

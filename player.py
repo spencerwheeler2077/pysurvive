@@ -1,5 +1,7 @@
 from random import randint
 from random import uniform as ranFloat
+
+import save
 from bag import Bag
 from camp import Camp
 import Items
@@ -303,10 +305,15 @@ class Player:
         self.__useEnergy(-1, 4+self.penalty)
 
     def quit(self):
-        intentionCheck = input("Are you sure you want to exit? enter y to quit \n-> ")
-        if intentionCheck == "y":
+        print("Would you like to save this game? Enter s")
+        print("To quit without saving, enter q\n-> ")
+        intentionCheck = input()
+        if intentionCheck == "q":
             print("You quit the game")
             exit()
+        if intentionCheck == "s":
+            save.save(self)
+
 
     def checkStructure(self):
         if self.location.hasStructure():
@@ -326,21 +333,16 @@ class Player:
 
     def __causeEvent(self):
         ranInt = randint(1, 100)
-        print(f'{ranInt} event roll') #TODO delete this
-        if ranInt >= 93:
+        if ranInt >= 96:
             events = [self.__eventGainItem, self.__eventLooseItem, self.__eventFireGoesOut, self.__eventFindStructure,
                       self.__eventShelterBreaks, self.__eventGainEnergy, self.__eventLooseEnergy, self.__eventTravel,
                       self.__eventTravelBack, ]
 
             events[randint(0, len(events)-1)]()
 
-
-
     def __eventGainItem(self):
-
         print("\nYou found something on the ground!")
         self.bag.addItem(Items.randomItem())
-
 
     def __eventLooseItem(self):
         if not self.bag.isEmpty():
@@ -382,6 +384,4 @@ class Player:
         self.traveled -= randint(25, 75)
 
     def __eventFindStructure(self):
-        print("\nNOT FINISHED")
-        #TODO
-
+        self.location.findStructure()

@@ -6,7 +6,7 @@ class Camp:
 
     def __init__(self, penalty, start=False):
         if start:
-            self.__structure = structure.makeStructure(72)
+            self.__structure = structure.makeStructure(70)
         else:
             self.__structure = structure.makeStructure()
         self.__shelter = self.__structure.shelter
@@ -43,13 +43,17 @@ class Camp:
         print("\nMaybe you can explore this place more to find more out!")
 
     def findStructure(self):
+        if not isinstance(self.__structure, structure.NoStructure):
+            return
         self.__structure = structure.makeStructure(64)
+        print(f"You wandered near by your camp and were surprised to find {str(self.__structure)}!")
         if not self.__water and self.__structure.hasWater:
             self.__water = True
             print("You found water!")
             self.__info.append("You found water here!")
         if self.__structure.shelter:
             self.__shelter = True
+            self.__shelterMessage = f"You can use the {str(self.__structure)} here as a shelter!"
 
 
     def explore(self):
@@ -96,8 +100,9 @@ class Camp:
         return self.__structure != structure.NoStructure()
 
     def destroyShelter(self):
-        self.__shelter = False
-        self.__shelterMessage = "Your shelter was Destroyed!"
+        if not self.__structure.shelter:
+            self.__shelter = False
+            self.__shelterMessage = "Your shelter was Destroyed!"
 
     def hunt(self, itemBonus):
         huntAttempt = randint(1, 100) - itemBonus

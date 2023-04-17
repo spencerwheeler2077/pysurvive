@@ -1,9 +1,17 @@
 import random
+import sys
+import save
+
 from player import Player
 
 
 class Game:
-    def __init__(self, test=False, strength=1):
+    def __init__(self, strength=1, test=False, player=None):
+        if player is not None:
+            self.player = player
+            # TODO make welcome back message
+            self.play()
+            return
         if not test:
             self.welcome()
             name = input('Player\'s name -> ')
@@ -46,4 +54,9 @@ of actions you take.) Good Luck!\n---------------------------------\n''')
 
 
 if __name__ == "__main__":
-    Game()
+    if len(sys.argv) > 1:
+        print(sys.argv[1])
+        player = save.load(sys.argv[1])
+        Game(player=player)
+    else:
+        Game()
